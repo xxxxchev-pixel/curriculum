@@ -10,4 +10,3 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- NOTA: não inserimos a password em texto claro — use o script PHP `scripts/create_user.php` para criar um utilizador com password hashed.
