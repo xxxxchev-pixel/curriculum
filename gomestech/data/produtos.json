@@ -1,0 +1,26 @@
+[
+    {
+        "nome": "iPhone 15",
+        "preco": 1029,
+        "categoria": "smartphones",
+        "imagem": "https://www.apple.com/pt/iphone-15/images/overview/hero/hero__dvsxk0smh6qe_large_2x.jpg"
+    },
+    {
+        "nome": "MacBook Air M2",
+        "preco": 1399,
+        "categoria": "laptops",
+        "imagem": "https://www.apple.com/pt/macbook-air-m2/images/overview/hero/hero_endframe__bsza6x4fldiq_large_2x.jpg"
+    },
+    {
+        "nome": "PlayStation 5",
+        "preco": 499,
+        "categoria": "consolas",
+        "imagem": "https://www.playstation.com/content/dam/ps5/console/ps5-console-hero-01.jpg"
+    },
+    {
+        "nome": "Samsung QLED TV",
+        "preco": 1299,
+        "categoria": "tvs",
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/pt/qled-tv/qn90b-hero-image.jpg"
+    }
+]

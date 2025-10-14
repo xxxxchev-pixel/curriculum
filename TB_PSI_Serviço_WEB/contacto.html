@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contacto</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>Contacto</h1>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="conteudos.html">Conteúdos</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="login.php">Área Reservada</a>
+  </nav>
+</header>
+
+<main>
+  <form id="formContato" novalidate>
+    <label>Nome:</label>
+    <input type="text" id="nome" required>
+    <label>Email:</label>
+    <input type="email" id="email" required>
+    <label>Mensagem:</label>
+    <textarea id="mensagem" required minlength="10"></textarea>
+    <button type="submit">Enviar</button>
+    <p id="feedback"></p>
+  </form>
+</main>
+
+<script>
+document.getElementById("formContato").addEventListener("submit", function(e){
+  e.preventDefault();
+  let nome = document.getElementById("nome").value;
+  let email = document.getElementById("email").value;
+  let msg = document.getElementById("mensagem").value;
+  let feedback = document.getElementById("feedback");
+
+  if(nome.length < 2){ feedback.textContent = "Nome inválido."; return; }
+  if(!email.includes("@")){ feedback.textContent = "Email inválido."; return; }
+  if(msg.length < 10){ feedback.textContent = "Mensagem demasiado curta."; return; }
+  feedback.textContent = "Formulário validado (não é enviado).";
+});
+</script>
+
+<footer>
+  <p>© 2025 Portal Gamer</p>
+</footer>
+</body>
+</html>
