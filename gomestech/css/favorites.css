@@ -1,0 +1,23 @@
+/* Favorites page styles */
+.favorites-section { padding: 24px 0 48px; }
+
+.favorites-header { display:flex; align-items:center; justify-content:space-between; gap: 12px; margin-bottom: 16px; }
+.favorites-actions { display:flex; align-items:center; gap: 12px; }
+.btn-clear { padding: 10px 16px; border-radius: 8px; }
+.link-add { text-decoration: none; }
+
+.favorites-empty { padding: 60px 20px; text-align: center; }
+
+.favorites-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+
+.favorite-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display:flex; flex-direction:column; }
+.favorite-image { width:100%; height: 200px; background: var(--bg-secondary); display:flex; align-items:center; justify-content:center; }
+.favorite-image img { width:100%; height:100%; object-fit: cover; }
+.favorite-info { padding: 14px; display:flex; flex-direction:column; gap: 8px; }
+.favorite-info .product-price { font-size: 1.125rem; font-weight: 800; color: var(--color-primary); }
+.favorite-actions { margin-top: auto; }
+
+@media (max-width: 560px){
+  .favorites-header { flex-direction: column; align-items: stretch; }
+  .favorites-actions { justify-content: space-between; }
+}
