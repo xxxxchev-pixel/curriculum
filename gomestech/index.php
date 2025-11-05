@@ -1,19 +1,47 @@
 <?php
-// Exibir todos os erros para debug
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-// Exibir erros para debug
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
+// Ocultar avisos/notices em produção
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(E_ERROR | E_PARSE);
+
+// Corrigir warning de variável não definida
+if (!isset($produto_dia)) {
+    $produto_dia = null;
+}
 
 session_start();
 require_once __DIR__ . '/config.php';
 
 // Conectar à base de dados
 $mysqli = db_connect();
+
 $products = get_all_produtos($mysqli);
+
+// Inicializar arrays de ofertas e destaque
+$special_offers = [];
+$featured_products = [];
+
+if (!empty($products) && is_array($products)) {
+    foreach ($products as $product) {
+        // Ofertas relâmpago: produtos com desconto (preco_original > preco)
+        if (!empty($product['preco_original']) && $product['preco_original'] > $product['preco']) {
+            $special_offers[] = $product;
+        }
+        // Produtos em destaque: campo 'destaque' ou 'featured' ou todos se não existir
+        if ((isset($product['destaque']) && $product['destaque']) || (isset($product['featured']) && $product['featured'])) {
+            $featured_products[] = $product;
+        }
+    }
+    // Se não houver nenhum destaque, mostrar os primeiros 8 produtos
+    if (empty($featured_products)) {
+        $featured_products = array_slice($products, 0, 8);
+    }
+    // Se não houver ofertas, mostrar os primeiros 8 produtos
+    if (empty($special_offers)) {
+        $special_offers = array_slice($products, 0, 8);
+    }
+}
 
 // Se não houver produtos na base de dados (por exemplo em ambiente local sem importar o JSON),
 // tentar um fallback para o ficheiro data/catalogo_completo.json para permitir visualização rápida.
@@ -26,38 +54,12 @@ if (empty($products)) {
             // Usar ids negativos para distinguir dos que estariam na BD
             $next_id = -1;
             foreach ($json['produtos'] as $p) {
-                $products[] = [
-                    'id' => $next_id--,
-                    'categoria' => $p['categoria'] ?? ($p['categoria_nome'] ?? ''),
-                    'marca' => $p['marca'] ?? ($p['marca_nome'] ?? ''),
-                    'modelo' => $p['modelo'] ?? ($p['nome'] ?? ''),
-                    'preco' => isset($p['preco']) ? (float)$p['preco'] : 0.00,
-                    'preco_original' => isset($p['preco_original']) ? (float)$p['preco_original'] : null,
-                    'imagem' => $p['imagem_url'] ?? $p['imagem'] ?? '',
-                    'descricao' => $p['descricao'] ?? '',
-                    'loja' => $p['loja'] ?? '',
-                ];
+                $p['id'] = $next_id--;
+                $products[] = $p;
             }
         }
     }
 }
-
-// Produtos em destaque (8 produtos)
-$featured_products = array_slice($products, 0, 8);
-
-// Ofertas especiais (produtos com desconto)
-$special_offers = array_slice($products, 8, 4);
-
-// Buscar produto do dia (se existir)
-$produto_dia = null;
-$check_column = $mysqli->query("SHOW COLUMNS FROM produtos LIKE 'produto_dia'");
-if ($check_column && $check_column->num_rows > 0) {
-    $result_dia = $mysqli->query("SELECT * FROM produtos WHERE produto_dia = TRUE LIMIT 1");
-    if ($result_dia && $result_dia->num_rows > 0) {
-        $produto_dia = $result_dia->fetch_assoc();
-    }
-}
-
 // NÃO FECHAR mysqli aqui - precisamos para o popup
 ?>
 <!DOCTYPE html>
@@ -351,13 +353,13 @@ if ($check_column && $check_column->num_rows > 0) {
         <!-- Main Header -->
         <div class="header-main">
             <div class="header-container">
-                <!-- Hamburger Toggle -->
-                <button class="hamburger-toggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="hamburger-menu" style="margin-right: 16px;">
-                    <span class="hamburger-icon" aria-hidden="true">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
+                <!-- Menu Lateral Toggle (Botão Laranja) -->
+                <button id="sideMenuToggle" aria-label="Abrir menu de categorias" style="background:#FF6A00;color:#fff;border:none;border-radius:8px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(255,106,0,0.3);transition:all 0.3s ease;margin-right:16px;flex-shrink:0;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
                 </button>
                 
                 <!-- Logo -->
@@ -566,14 +568,73 @@ if ($check_column && $check_column->num_rows > 0) {
 
     <!-- ===== CATEGORIAS (Ícones Circulares) ===== -->
     <section class="categories-section">
-        <div class="section-header">
-            <h2 class="section-title">Compra por Categoria</h2>
+
+    <?php
+    // Categorias principais para exibir na grid
+    $categorias_grid = [
+        'Smartphones' => 'smartphones',
+        'Laptops' => 'laptops',
+        'Televisores' => 'tvs',
+        'Wearables' => 'wearables',
+        'Tablets' => 'tablets',
+        'Audio' => 'audio',
+        'Auriculares' => 'auriculares',
+        'Headphones' => 'headphones',
+    ];
+    $categoria_selecionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
+    $marca_selecionada = isset($_GET['marca']) ? $_GET['marca'] : null;
+    ?>
+    <div class="section-header">
+        <h2 class="section-title">Compra por Categoria</h2>
+    </div>
+    <div class="categories-grid">
+        <?php foreach($categorias_grid as $cat_nome => $cat_slug): ?>
+            <a href="categorias/categoria.php?cat=<?php echo urlencode($cat_nome); ?>" class="category-card">
+                <img src="img/<?php echo $cat_slug; ?>.svg" alt="<?php echo htmlspecialchars($cat_nome); ?>" style="width:48px;height:48px;">
+                <span><?php echo htmlspecialchars($cat_nome); ?></span>
+            </a>
+        <?php endforeach; ?>
+    </div>
+
+    <?php if($categoria_selecionada): ?>
+        <?php $marcas = get_marcas_by_categoria($mysqli, $categoria_selecionada); ?>
+        <div class="brands-section" style="margin-top:32px;">
+            <div class="section-header">
+                <h2 class="section-title">Marcas em <?php echo htmlspecialchars($categoria_selecionada); ?></h2>
+            </div>
+            <div class="brands-grid">
+                <?php foreach($marcas as $marca): ?>
+                    <a href="categorias/categoria.php?cat=<?php echo urlencode($categoria_selecionada); ?>&marca=<?php echo urlencode($marca); ?>" class="brand-card<?php if($marca === $marca_selecionada) echo ' active'; ?>">
+                        <img src="img/<?php echo strtolower(str_replace(' ', '-', $marca)); ?>-logo.svg" alt="<?php echo htmlspecialchars($marca); ?>" style="height:40px;">
+                    </a>
+                <?php endforeach; ?>
+            </div>
         </div>
-        
-        <div class="categories-grid">
-            <!-- Quick category links removed as requested -->
-        </div>
+    <?php endif; ?>
     </section>
+
+    <!-- MENU LATERAL DE CATEGORIAS -->
+    <nav id="sideMenu" class="side-menu" style="position:fixed;left:-280px;top:80px;width:260px;z-index:200;background:#fff;border-right:1px solid #eee;height:calc(100vh - 80px);padding:24px 0;transition:left 0.3s ease;overflow-y:auto;box-shadow:2px 0 8px rgba(0,0,0,0.1);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 24px 16px;">
+            <h3 style="font-size:1.1rem;color:#FF6A00;margin:0;">Menu de Categorias</h3>
+            <button id="sideMenuClose" style="background:none;border:none;font-size:24px;cursor:pointer;color:#666;">×</button>
+        </div>
+        <ul style="list-style:none;padding:0;margin:0;">
+        <?php
+        // Buscar todas as categorias
+        $todas_categorias = get_categorias($mysqli);
+        foreach($todas_categorias as $cat):
+            $cat_slug = strtolower(str_replace(' ', '-', $cat));
+        ?>
+            <li style="margin-bottom:8px;">
+                <a href="categorias/categoria.php?cat=<?php echo urlencode($cat); ?>" style="display:flex;align-items:center;padding:12px 24px;color:#222;font-weight:600;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='transparent'">
+                    <img src="img/<?php echo $cat_slug; ?>.svg" alt="<?php echo htmlspecialchars($cat); ?>" style="width:28px;height:28px;margin-right:12px;" onerror="this.style.display='none'">
+                    <?php echo htmlspecialchars($cat); ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+    </nav>
 
     <!-- ===== OFERTAS ESPECIAIS ===== -->
     <section class="products-section" style="background: linear-gradient(135deg, #FFB800 0%, #FF6600 100%); padding: 48px 24px; border-radius: 16px; margin-top: 48px;">
@@ -585,7 +646,30 @@ if ($check_column && $check_column->num_rows > 0) {
         </div>
         
         <div class="products-grid" style="max-width: 1400px; margin: 24px auto 0; justify-content: center;">
-            <?php foreach($special_offers as $product): ?>
+            <?php
+            // Filtragem de produtos por categoria e marca
+            $produtos_filtrados = $special_offers;
+            if ($categoria_selecionada) {
+                $produtos_filtrados = array_filter($produtos_filtrados, function($p) use ($categoria_selecionada) {
+                    return $p['categoria'] === $categoria_selecionada;
+                });
+            }
+            if ($marca_selecionada) {
+                $produtos_filtrados = array_filter($produtos_filtrados, function($p) use ($marca_selecionada) {
+                    return $p['marca'] === $marca_selecionada;
+                });
+            }
+            
+            // Mostrar mensagem se não houver produtos
+            if(empty($produtos_filtrados)):
+            ?>
+                <div style="grid-column:1/-1;text-align:center;padding:48px;color:#666;">
+                    <p style="font-size:1.2rem;">Nenhum produto encontrado para os filtros selecionados.</p>
+                    <a href="index.php" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#FF6A00;color:#fff;border-radius:8px;text-decoration:none;">Limpar Filtros</a>
+                </div>
+            <?php else: ?>
+            
+            <?php foreach($produtos_filtrados as $product): ?>
             <div class="product-card">
                 <a href="produto.php?id=<?php echo $product['id']; ?>" class="product-image">
                     <img 
@@ -594,15 +678,13 @@ if ($check_column && $check_column->num_rows > 0) {
                         loading="lazy"
                     >
                 </a>
-                
                 <div class="product-info">
                     <span class="product-category"><?php echo htmlspecialchars($product['categoria']); ?></span>
                     <h3 class="product-title">
-                           <a href="produto.php?id=<?php echo $product['id']; ?>">
+                        <a href="produto.php?id=<?php echo $product['id']; ?>">
                             <?php echo htmlspecialchars($product['marca'] . ' ' . $product['modelo']); ?>
                         </a>
                     </h3>
-                    
                     <div class="product-footer">
                         <div class="product-price-wrapper">
                             <?php if(!empty($product['preco_original']) && $product['preco_original'] > $product['preco']): ?>
@@ -610,22 +692,20 @@ if ($check_column && $check_column->num_rows > 0) {
                             <?php endif; ?>
                             <span class="product-price">€<?php echo number_format($product['preco'], 2, ',', '.'); ?></span>
                         </div>
-                        
-                        <div class="product-actions">
-                            <form method="post" action="carrinho.php" style="width: 100%;">
+                        <div class="product-actions" style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; margin-top: 10px;">
+                            <form method="post" action="carrinho.php" style="width: 100%; display: flex; justify-content: center;">
                                 <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
                                 <input type="hidden" name="action" value="add">
                                 <input type="hidden" name="qty" value="1">
-                                <button type="submit" class="btn btn-primary">
-                                    🛒 Adicionar
+                                <button type="submit" class="btn btn-primary btn-cart-main">
+                                    🛒 Adicionar ao Carrinho
                                 </button>
                             </form>
-                            
-                            <div class="product-secondary-actions">
-                                <button class="btn-icon favorite-btn" data-id="<?php echo $product['id']; ?>" title="Adicionar aos favoritos">
+                            <div class="product-secondary-actions" style="display: flex; justify-content: center; gap: 12px; width: 100%;">
+                                <button class="btn-icon btn-secondary-action favorite-btn" data-id="<?php echo $product['id']; ?>" title="Adicionar aos favoritos">
                                     ❤️ <span class="icon-text">Favorito</span>
                                 </button>
-                                <button class="btn-icon compare-btn" data-id="<?php echo $product['id']; ?>" title="Comparar">
+                                <button class="btn-icon btn-secondary-action compare-btn" data-id="<?php echo $product['id']; ?>" title="Comparar">
                                     ⚖️ <span class="icon-text">Comparar</span>
                                 </button>
                             </div>
@@ -634,6 +714,7 @@ if ($check_column && $check_column->num_rows > 0) {
                 </div>
             </div>
             <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -654,7 +735,6 @@ if ($check_column && $check_column->num_rows > 0) {
                         loading="lazy"
                     >
                 </a>
-                
                 <div class="product-info">
                     <span class="product-category"><?php echo htmlspecialchars($product['categoria']); ?></span>
                     <h3 class="product-title">
@@ -662,7 +742,6 @@ if ($check_column && $check_column->num_rows > 0) {
                             <?php echo htmlspecialchars($product['marca'] . ' ' . $product['modelo']); ?>
                         </a>
                     </h3>
-                    
                     <div class="product-footer">
                         <div class="product-price-wrapper">
                             <?php if(!empty($product['preco_original']) && $product['preco_original'] > $product['preco']): ?>
@@ -670,22 +749,20 @@ if ($check_column && $check_column->num_rows > 0) {
                             <?php endif; ?>
                             <span class="product-price">€<?php echo number_format($product['preco'], 2, ',', '.'); ?></span>
                         </div>
-                        
-                        <div class="product-actions">
-                            <form method="post" action="carrinho.php" style="width: 100%;">
+                        <div class="product-actions" style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; margin-top: 10px;">
+                            <form method="post" action="carrinho.php" style="width: 100%; display: flex; justify-content: center;">
                                 <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
                                 <input type="hidden" name="action" value="add">
                                 <input type="hidden" name="qty" value="1">
-                                <button type="submit" class="btn btn-primary">
-                                    🛒 Adicionar
+                                <button type="submit" class="btn btn-primary btn-cart-main">
+                                    🛒 Adicionar ao Carrinho
                                 </button>
                             </form>
-                            
-                            <div class="product-secondary-actions">
-                                <button class="btn-icon favorite-btn" data-id="<?php echo $product['id']; ?>" title="Adicionar aos favoritos">
+                            <div class="product-secondary-actions" style="display: flex; justify-content: center; gap: 12px; width: 100%;">
+                                <button class="btn-icon btn-secondary-action favorite-btn" data-id="<?php echo $product['id']; ?>" title="Adicionar aos favoritos">
                                     ❤️ <span class="icon-text">Favorito</span>
                                 </button>
-                                <button class="btn-icon compare-btn" data-id="<?php echo $product['id']; ?>" title="Comparar">
+                                <button class="btn-icon btn-secondary-action compare-btn" data-id="<?php echo $product['id']; ?>" title="Comparar">
                                     ⚖️ <span class="icon-text">Comparar</span>
                                 </button>
                             </div>
@@ -743,8 +820,34 @@ if ($check_column && $check_column->num_rows > 0) {
     </footer>
 
     <!-- JavaScript -->
-    <script src="js/hamburger-menu.js"></script>
     <script>
+        // ===== MENU LATERAL TOGGLE =====
+        const sideMenu = document.getElementById('sideMenu');
+        const sideMenuToggle = document.getElementById('sideMenuToggle');
+        const sideMenuClose = document.getElementById('sideMenuClose');
+        let sideMenuOpen = false;
+
+        function toggleSideMenu() {
+            sideMenuOpen = !sideMenuOpen;
+            if (sideMenuOpen) {
+                sideMenu.style.left = '0';
+                sideMenuToggle.style.transform = 'rotate(90deg)';
+            } else {
+                sideMenu.style.left = '-280px';
+                sideMenuToggle.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        sideMenuToggle.addEventListener('click', toggleSideMenu);
+        sideMenuClose.addEventListener('click', toggleSideMenu);
+
+        // Fechar menu ao clicar fora dele
+        document.addEventListener('click', function(e) {
+            if (sideMenuOpen && !sideMenu.contains(e.target) && !sideMenuToggle.contains(e.target)) {
+                toggleSideMenu();
+            }
+        });
+
         // Theme Toggle
         function toggleTheme() {
             const icon = document.getElementById('theme-icon');
