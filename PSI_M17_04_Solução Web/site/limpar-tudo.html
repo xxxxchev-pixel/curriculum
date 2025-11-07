@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limpar Dados - DermaCare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+        .btn-xl {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+        }
+        .countdown {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0">
+                <i class="bi bi-trash3"></i> Limpeza Completa de Dados
+            </h3>
+        </div>
+        <div class="card-body text-center">
+            <div id="antes" class="mb-4">
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <strong>Problema Identificado:</strong>
+                    <p class="mb-0 mt-2">Seus dados estão sendo associados a uma conta antiga "João Silva" porque há dados antigos no cache do navegador.</p>
+                </div>
+                
+                <h5 class="mt-4 mb-3">Esta ferramenta vai:</h5>
+                <ul class="text-start">
+                    <li class="mb-2">✅ Limpar TODOS os dados antigos do localStorage</li>
+                    <li class="mb-2">✅ Remover cache do "João Silva"</li>
+                    <li class="mb-2">✅ Resetar completamente o sistema de autenticação</li>
+                    <li class="mb-2">✅ Preparar para um novo registro limpo</li>
+                </ul>
+                
+                <div class="alert alert-info mt-4">
+                    <i class="bi bi-info-circle"></i>
+                    <strong>Não se preocupe:</strong> Os dados no banco de dados MySQL estão seguros. Isso só limpa o cache do navegador.
+                </div>
+                
+                <button onclick="limparTudo()" class="btn btn-danger btn-xl mt-4">
+                    <i class="bi bi-trash3"></i> Limpar TUDO Agora
+                </button>
+            </div>
+            
+            <div id="limpando" style="display: none;" class="mb-4">
+                <div class="countdown mb-4" id="countdown">3</div>
+                <h5>Limpando dados antigos...</h5>
+                <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;"></div>
+            </div>
+            
+            <div id="depois" style="display: none;">
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <h4>✅ Limpeza Concluída!</h4>
+                    <p class="mb-0">Todos os dados antigos foram removidos. Agora você pode criar sua conta corretamente.</p>
+                </div>
+                
+                <h5 class="mt-4 mb-3">Próximos passos:</h5>
+                <div class="d-grid gap-3">
+                    <a href="registo.html" class="btn btn-success btn-lg">
+                        <i class="bi bi-person-plus"></i> Criar Nova Conta
+                    </a>
+                    <a href="login.html" class="btn btn-primary btn-lg">
+                        <i class="bi bi-box-arrow-in-right"></i> Fazer Login
+                    </a>
+                    <a href="debug-usuario.html" class="btn btn-secondary">
+                        <i class="bi bi-bug"></i> Ver Debug (Verificar Limpeza)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function limparTudo() {
+            // Esconder botão inicial
+            document.getElementById('antes').style.display = 'none';
+            document.getElementById('limpando').style.display = 'block';
+            
+            // Contagem regressiva
+            let count = 3;
+            const countdownElem = document.getElementById('countdown');
+            
+            const interval = setInterval(() => {
+                count--;
+                countdownElem.textContent = count;
+                
+                if (count === 0) {
+                    clearInterval(interval);
+                    
+                    // Executar limpeza
+                    console.log('🧹 Iniciando limpeza completa...');
+                    
+                    // 1. Limpar localStorage completamente
+                    localStorage.clear();
+                    console.log('✅ localStorage limpo');
+                    
+                    // 2. Limpar sessionStorage
+                    sessionStorage.clear();
+                    console.log('✅ sessionStorage limpo');
+                    
+                    // 3. Limpar cookies relacionados
+                    document.cookie.split(";").forEach(function(c) { 
+                        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+                    });
+                    console.log('✅ Cookies limpos');
+                    
+                    // Aguardar um pouco e mostrar sucesso
+                    setTimeout(() => {
+                        document.getElementById('limpando').style.display = 'none';
+                        document.getElementById('depois').style.display = 'block';
+                        
+                        console.log('✅ Limpeza completa concluída!');
+                        console.log('📋 localStorage atual:', JSON.stringify(localStorage));
+                    }, 1000);
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

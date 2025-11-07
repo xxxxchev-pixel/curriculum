@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Marque a sua consulta online na Clínica DermaCare de forma rápida e fácil.">
+    <title>Marcar Consulta - DermaCare</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-heart-pulse-fill text-primary"></i>
+                <span class="fw-bold">DermaCare</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="servicos.html">Serviços</a></li>
+                    <li class="nav-item"><a class="nav-link" href="medicos.html">Médicos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="bi bi-person-circle"></i> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="text-white mb-3">Marcar Consulta</h1>
+            <p class="text-white">Agende a sua consulta de forma rápida e fácil</p>
+        </div>
+    </section>
+
+    <!-- MARCAÇÃO SECTION -->
+    <section class="py-5">
+        <div class="container">
+            
+            <!-- STEPS -->
+            <div class="steps-container mb-5">
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Médico</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Serviço</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Data e Hora</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Dados</div>
+                </div>
+                <div class="step" data-step="5">
+                    <div class="step-circle">5</div>
+                    <div class="step-label">Confirmação</div>
+                </div>
+            </div>
+
+            <!-- STEP 1: ESCOLHER MÉDICO -->
+            <div class="step-content" id="step-1">
+                <h3 class="mb-4">Escolha o Médico</h3>
+                <div class="row g-4" id="medicos-container">
+                    <div class="col-md-4">
+                        <div class="medico-card" data-medico-id="1" onclick="selecionarMedico(1)">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400" alt="Dra. Ana Silva">
+                            <div class="card-body text-center">
+                                <h5>Dra. Ana Silva</h5>
+                                <p class="text-muted mb-2">Dermatologia Clínica</p>
+                                <small class="text-secondary">15 anos de experiência</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="medico-card" data-medico-id="2" onclick="selecionarMedico(2)">
+                            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400" alt="Dr. João Santos">
+                            <div class="card-body text-center">
+                                <h5>Dr. João Santos</h5>
+                                <p class="text-muted mb-2">Dermatologia Estética</p>
+                                <small class="text-secondary">12 anos de experiência</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="medico-card" data-medico-id="3" onclick="selecionarMedico(3)">
+                            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400" alt="Dra. Maria Costa">
+                            <div class="card-body text-center">
+                                <h5>Dra. Maria Costa</h5>
+                                <p class="text-muted mb-2">Dermatologia Pediátrica</p>
+                                <small class="text-secondary">10 anos de experiência</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: ESCOLHER SERVIÇO -->
+            <div class="step-content d-none" id="step-2">
+                <h3 class="mb-4">Escolha o Serviço</h3>
+                <div class="row g-3" id="servicos-container">
+                    <div class="col-md-6">
+                        <div class="card" onclick="selecionarServico(1)">
+                            <div class="card-body">
+                                <h5><i class="bi bi-check-circle text-primary"></i> Consulta de Dermatologia</h5>
+                                <p class="text-muted mb-2">Consulta geral de dermatologia</p>
+                                <small><strong>Duração:</strong> 30 min | <strong>Preço:</strong> €60</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card" onclick="selecionarServico(2)">
+                            <div class="card-body">
+                                <h5><i class="bi bi-check-circle text-primary"></i> Tratamento de Acne</h5>
+                                <p class="text-muted mb-2">Avaliação e tratamento de acne</p>
+                                <small><strong>Duração:</strong> 45 min | <strong>Preço:</strong> €80</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: ESCOLHER DATA E HORA -->
+            <div class="step-content d-none" id="step-3">
+                <h3 class="mb-4">Escolha a Data e Hora</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Data da Consulta</label>
+                        <input type="text" class="form-control" id="calendario" placeholder="Selecione a data">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Horário</label>
+                        <div class="row g-2" id="horarios-container">
+                            <div class="col-4"><button class="btn-horario w-100" onclick="selecionarHorario('09:00')">09:00</button></div>
+                            <div class="col-4"><button class="btn-horario w-100" onclick="selecionarHorario('09:30')">09:30</button></div>
+                            <div class="col-4"><button class="btn-horario w-100" onclick="selecionarHorario('10:00')">10:00</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: DADOS PESSOAIS -->
+            <div class="step-content d-none" id="step-4">
+                <h3 class="mb-4">Seus Dados</h3>
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> Seus dados pessoais foram preenchidos automaticamente a partir do seu perfil.
+                </div>
+                <form id="form-dados">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Nome Completo *</label>
+                            <input type="text" id="input-nome" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email *</label>
+                            <input type="email" id="input-email" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Telefone *</label>
+                            <input type="tel" id="input-telefone" class="form-control" required 
+                                   placeholder="912345678">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">NIF</label>
+                            <input type="text" id="input-nif" class="form-control" 
+                                   placeholder="123456789" maxlength="9">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Motivo/Observações da Consulta</label>
+                            <textarea id="input-observacoes" class="form-control" rows="3" 
+                                      placeholder="Descreva brevemente o motivo da consulta ou observações importantes..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 5: CONFIRMAÇÃO -->
+            <div class="step-content d-none" id="step-5">
+                <h3 class="mb-4">Confirmação</h3>
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Resumo da Marcação</h5>
+                        <hr>
+                        <p><strong>Médico:</strong> <span id="resumo-medico">-</span></p>
+                        <p><strong>Serviço:</strong> <span id="resumo-servico">-</span></p>
+                        <p><strong>Data:</strong> <span id="resumo-data">-</span></p>
+                        <p><strong>Hora:</strong> <span id="resumo-hora">-</span></p>
+                        <hr>
+                        <button class="btn btn-primary btn-lg w-100" onclick="confirmarMarcacao()">
+                            <i class="bi bi-check-circle"></i> Confirmar Marcação
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NAVEGAÇÃO -->
+            <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-outline-secondary" id="btn-voltar" onclick="voltarStep()" disabled>
+                    <i class="bi bi-arrow-left"></i> Voltar
+                </button>
+                <button class="btn btn-primary" id="btn-proximo" onclick="proximoStep()">
+                    Próximo <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer py-5 bg-dark text-white">
+        <div class="container text-center">
+            <p>&copy; 2025 DermaCare. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/navbar-auth.js"></script>
+    <script src="assets/js/marcacao.js"></script>
+</body>
+</html>

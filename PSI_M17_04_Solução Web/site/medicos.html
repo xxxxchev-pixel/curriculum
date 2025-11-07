@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conheça a equipa médica especializada da Clínica DermaCare.">
+    <title>Médicos - DermaCare</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-heart-pulse-fill text-primary"></i>
+                <span class="fw-bold">DermaCare</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="servicos.html">Serviços</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="medicos.html">Médicos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="bi bi-person-circle"></i> Login</a></li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-2" href="marcacao.html">
+                            <i class="bi bi-calendar-check"></i> Marcar Consulta
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="text-white mb-3">Nossa Equipa Médica</h1>
+            <p class="text-white">Especialistas dedicados ao cuidado da sua pele</p>
+        </div>
+    </section>
+
+    <!-- MÉDICOS -->
+    <section class="py-5">
+        <div class="container">
+            
+            <!-- Dra. Ana Silva -->
+            <div class="medico-profile mb-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-4">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&fit=crop&q=80" 
+                             alt="Dra. Ana Silva - Dermatologista" class="img-fluid rounded-3 shadow">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <span class="badge badge-custom bg-primary">Diretora Clínica</span>
+                            <span class="badge badge-custom bg-info">Dermatologia Clínica</span>
+                        </div>
+                        <h2>Dra. Ana Silva</h2>
+                        <p class="text-muted mb-3">Médica Dermatologista • CRM 12345</p>
+                        
+                        <p>
+                            Especialista em dermatologia clínica com foco em tratamentos estéticos avançados 
+                            e cuidados preventivos. Experiência no diagnóstico e tratamento de acne, rosácea 
+                            e envelhecimento cutâneo. Mais de 15 anos de experiência.
+                        </p>
+
+                        <h5 class="mt-4 mb-3">Especialidades</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Dermatologia Clínica</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Tratamentos Estéticos</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Acne e Rosácea</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Envelhecimento Cutâneo</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="mb-3">Formação</h5>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Mestrado em Medicina</strong> - Universidade de Lisboa
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Especialização em Dermatologia</strong> - Hospital de Santa Maria
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Pós-Graduação em Estética Médica</strong> - FMUL
+                            </li>
+                        </ul>
+
+                        <div class="d-flex gap-2">
+                            <a href="marcacao.html?medico=1" class="btn btn-primary">
+                                <i class="bi bi-calendar-check"></i> Marcar Consulta
+                            </a>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalAna">
+                                <i class="bi bi-info-circle"></i> Ver Mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-5">
+
+            <!-- Dr. Carlos Santos -->
+            <div class="medico-profile mb-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-4 order-md-2">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&fit=crop&q=80" 
+                             alt="Dr. Carlos Santos - Dermatologia Estética" class="img-fluid rounded-3 shadow">
+                    </div>
+                    <div class="col-md-8 order-md-1">
+                        <div class="mb-3">
+                            <span class="badge badge-custom bg-info">Dermatologia Estética</span>
+                            <span class="badge badge-custom bg-warning text-dark">Procedimentos Estéticos</span>
+                        </div>
+                        <h2>Dr. Carlos Santos</h2>
+                        <p class="text-muted mb-3">Médico Dermatologista • CRM 23456</p>
+                        
+                        <p>
+                            Expert em procedimentos estéticos minimamente invasivos e rejuvenescimento facial. 
+                            Especializado em aplicação de toxina botulínica, preenchimentos e bioestimuladores 
+                            de colágeno. 12 anos de experiência.
+                        </p>
+
+                        <h5 class="mt-4 mb-3">Especialidades</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Toxina Botulínica</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Preenchimentos Faciais</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Bioestimuladores</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Rejuvenescimento Facial</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="mb-3">Formação</h5>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Mestrado em Medicina</strong> - Universidade do Porto
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Especialização em Dermatologia</strong> - Hospital de São João
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Pós-Graduação em Estética Médica</strong> - FMUL
+                            </li>
+                        </ul>
+
+                        <div class="d-flex gap-2">
+                            <a href="marcacao.html?medico=2" class="btn btn-primary">
+                                <i class="bi bi-calendar-check"></i> Marcar Consulta
+                            </a>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalCarlos">
+                                <i class="bi bi-info-circle"></i> Ver Mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-5">
+
+            <!-- Dra. Maria Costa -->
+            <div class="medico-profile mb-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-4">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&fit=crop&q=80" 
+                             alt="Dra. Maria Costa - Tricologia" class="img-fluid rounded-3 shadow">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <span class="badge badge-custom bg-primary">Tricologia</span>
+                            <span class="badge badge-custom bg-success">Saúde Capilar</span>
+                        </div>
+                        <h2>Dra. Maria Costa</h2>
+                        <p class="text-muted mb-3">Médica Dermatologista • CRM 34567</p>
+                        
+                        <p>
+                            Especialista em saúde capilar e tratamentos para queda de cabelo. Dedicada ao 
+                            diagnóstico e tratamento de alopecias e doenças do couro cabeludo. 10 anos de 
+                            experiência.
+                        </p>
+
+                        <h5 class="mt-4 mb-3">Especialidades</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Tratamento de Queda de Cabelo</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Alopecias</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Doenças do Couro Cabeludo</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Tricoscopia</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="mb-3">Formação</h5>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Mestrado em Medicina</strong> - Universidade de Coimbra
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Especialização em Dermatologia</strong> - Hospital Universitário de Coimbra
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Fellowship em Tricologia</strong> - Instituto de Dermatologia
+                            </li>
+                        </ul>
+
+                        <div class="d-flex gap-2">
+                            <a href="marcacao.html?medico=3" class="btn btn-primary">
+                                <i class="bi bi-calendar-check"></i> Marcar Consulta
+                            </a>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalMaria">
+                                <i class="bi bi-info-circle"></i> Ver Mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-5">
+
+            <!-- Dr. Pedro Oliveira -->
+            <div class="medico-profile mb-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-4 order-md-2">
+                            <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=600&fit=crop&q=80" 
+                                 alt="Dr. Pedro Oliveira - Dermatologia Pediátrica" class="img-fluid rounded-3 shadow">
+                    </div>
+                    <div class="col-md-8 order-md-1">
+                        <div class="mb-3">
+                            <span class="badge badge-custom bg-info">Dermatologia Pediátrica</span>
+                            <span class="badge badge-custom bg-warning text-dark">Pediatria</span>
+                        </div>
+                        <h2>Dr. Pedro Oliveira</h2>
+                        <p class="text-muted mb-3">Médico Dermatologista • CRM 45678</p>
+                        
+                        <p>
+                            Dermatologista pediátrico com vasta experiência em tratamento de doenças de pele 
+                            em crianças e adolescentes. Especializado em dermatite atópica e hemangiomas. 
+                            8 anos de experiência.
+                        </p>
+
+                        <h5 class="mt-4 mb-3">Especialidades</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Dermatite Atópica</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Hemangiomas</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Doenças Pediátricas</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                    <span>Alergias Cutâneas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="mb-3">Formação</h5>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Mestrado em Medicina</strong> - Universidade Nova de Lisboa
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Especialização em Dermatologia</strong> - Hospital Dona Estefânia
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                                <strong>Fellowship em Dermatologia Pediátrica</strong> - Hospital Pediátrico de Coimbra
+                            </li>
+                        </ul>
+
+                        <div class="d-flex gap-2">
+                            <a href="marcacao.html?medico=4" class="btn btn-primary">
+                                <i class="bi bi-calendar-check"></i> Marcar Consulta
+                            </a>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalPedro">
+                                <i class="bi bi-info-circle"></i> Ver Mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ESTATÍSTICAS DA EQUIPA -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <i class="bi bi-award-fill text-primary fs-1 mb-3"></i>
+                        <h3 class="fw-bold">45+</h3>
+                        <p class="text-muted">Anos de Experiência Combinada</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <i class="bi bi-people-fill text-primary fs-1 mb-3"></i>
+                        <h3 class="fw-bold">8000+</h3>
+                        <p class="text-muted">Pacientes Atendidos</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <i class="bi bi-star-fill text-primary fs-1 mb-3"></i>
+                        <h3 class="fw-bold">4.9/5</h3>
+                        <p class="text-muted">Avaliação Média</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <i class="bi bi-mortarboard-fill text-primary fs-1 mb-3"></i>
+                        <h3 class="fw-bold">4</h3>
+                        <p class="text-muted">Especialistas Certificados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h2 class="text-white mb-3">Agende sua Consulta</h2>
+                    <p class="text-white mb-0">
+                        Nossa equipa especializada está pronta para cuidar da sua pele.
+                    </p>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                    <a href="marcacao.html" class="btn btn-light btn-lg">
+                        <i class="bi bi-calendar-check"></i> Marcar Consulta
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAIS COM INFORMAÇÕES DETALHADAS -->
+    
+    <!-- Modal Dr. Miguel -->
+    <div class="modal fade" id="modalMiguel" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Dr. Miguel Santos - Perfil Completo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Publicações Científicas</h6>
+                    <ul>
+                        <li>Autor de mais de 30 artigos em revistas científicas internacionais</li>
+                        <li>Co-autor do livro "Dermatologia Oncológica em Portugal" (2020)</li>
+                        <li>Palestrante em congressos nacionais e internacionais</li>
+                    </ul>
+                    
+                    <h6 class="mt-4">Associações Profissionais</h6>
+                    <ul>
+                        <li>Membro da Sociedade Portuguesa de Dermatologia e Venereologia</li>
+                        <li>Membro da European Academy of Dermatology and Venereology</li>
+                        <li>Membro da International Society for Dermatologic Surgery</li>
+                    </ul>
+
+                    <h6 class="mt-4">Idiomas</h6>
+                    <p>Português (nativo), Inglês (fluente), Espanhol (avançado)</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="marcacao.html?medico=miguel-santos" class="btn btn-primary">Marcar Consulta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Dra. Ana -->
+    <div class="modal fade" id="modalAna" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Dra. Ana Rodrigues - Perfil Completo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Formação Complementar</h6>
+                    <ul>
+                        <li>Curso Avançado de Toxina Botulínica - Allergan Medical Institute</li>
+                        <li>Master Class em Preenchimentos - Galderma Academy</li>
+                        <li>Certificação em Laser Fracionado - Cynosure University</li>
+                        <li>Workshop em Harmonização Facial - SBCD Brasil</li>
+                    </ul>
+                    
+                    <h6 class="mt-4">Prémios e Reconhecimentos</h6>
+                    <ul>
+                        <li>Prémio Jovem Investigador - SPD 2019</li>
+                        <li>Best Case Award - Congresso Europeu de Estética 2021</li>
+                    </ul>
+
+                    <h6 class="mt-4">Idiomas</h6>
+                    <p>Português (nativo), Inglês (fluente), Francês (intermédio)</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="marcacao.html?medico=ana-rodrigues" class="btn btn-primary">Marcar Consulta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Dr. Carlos -->
+    <div class="modal fade" id="modalCarlos" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Dr. Carlos Mendes - Perfil Completo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Áreas de Interesse Clínico</h6>
+                    <ul>
+                        <li>Tratamento de alopecia androgenética e alopecia areata</li>
+                        <li>Doenças inflamatórias da pele (psoríase, dermatite atópica)</li>
+                        <li>Tricoscopia digital avançada</li>
+                        <li>Terapias biológicas em dermatologia</li>
+                    </ul>
+                    
+                    <h6 class="mt-4">Investigação</h6>
+                    <ul>
+                        <li>Investigador principal em estudos sobre tratamentos capilares</li>
+                        <li>Colaborador em projetos de investigação da SPDV</li>
+                        <li>Revisor de artigos científicos em tricologia</li>
+                    </ul>
+
+                    <h6 class="mt-4">Idiomas</h6>
+                    <p>Português (nativo), Inglês (fluente), Italiano (básico)</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="marcacao.html?medico=carlos-mendes" class="btn btn-primary">Marcar Consulta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="mb-3">
+                        <i class="bi bi-heart-pulse-fill text-primary"></i>
+                        DermaCare
+                    </h5>
+                    <p class="text-muted">
+                        Clínica dermatológica especializada em cuidados com a pele.
+                    </p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="mb-3">Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-muted">Início</a></li>
+                        <li><a href="servicos.html" class="text-muted">Serviços</a></li>
+                        <li><a href="medicos.html" class="text-muted">Médicos</a></li>
+                        <li><a href="contacto.html" class="text-muted">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="mb-3">Horário</h6>
+                    <ul class="list-unstyled text-muted">
+                        <li>Segunda a Sexta: 9h-19h</li>
+                        <li>Sábado: 9h-13h</li>
+                        <li>Domingo: Fechado</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="mb-3">Contacto</h6>
+                    <ul class="list-unstyled text-muted">
+                        <li><i class="bi bi-geo-alt-fill text-primary"></i> Rua Exemplo, 123, Lisboa</li>
+                        <li><i class="bi bi-telephone-fill text-primary"></i> +351 210 000 000</li>
+                        <li><i class="bi bi-envelope-fill text-primary"></i> geral@dermacare.pt</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="text-center">
+                <p class="mb-0 text-muted">&copy; 2025 DermaCare. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/navbar-auth.js"></script>
+</body>
+</html>

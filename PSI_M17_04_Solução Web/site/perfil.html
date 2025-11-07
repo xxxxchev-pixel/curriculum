@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Área pessoal - DermaCare">
+    <title>Meu Perfil - DermaCare</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+    
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-heart-pulse-fill text-primary"></i>
+                <span class="fw-bold">DermaCare</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="servicos.html">Serviços</a></li>
+                    <li class="nav-item"><a class="nav-link" href="medicos.html">Médicos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" 
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> <span id="nomeUsuario">João Silva</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item active" href="perfil.html">
+                                <i class="bi bi-person"></i> Meu Perfil</a></li>
+                            <li><a class="dropdown-item" href="minhas-marcacoes.html">
+                                <i class="bi bi-calendar-check"></i> Minhas Marcações</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">
+                                <i class="bi bi-box-arrow-right"></i> Sair</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-2" href="marcacao.html">
+                            <i class="bi bi-calendar-check"></i> Marcar Consulta
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PERFIL SECTION -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                
+                <!-- SIDEBAR -->
+                <div class="col-lg-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                <img id="perfilAvatar" src="https://ui-avatars.com/api/?name=Usuario&size=150&background=0d6efd&color=fff" 
+                                     alt="Avatar" class="rounded-circle" style="width: 150px; height: 150px;">
+                            </div>
+                            <h5 id="perfilNome">Carregando...</h5>
+                            <p class="text-muted mb-3" id="perfilEmail">Carregando...</p>
+                            <span class="badge bg-success">Paciente Ativo</span>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm mt-3">
+                        <div class="list-group list-group-flush">
+                            <a href="#" class="list-group-item list-group-item-action active" 
+                               onclick="mostrarSecao('dadosPessoais')">
+                                <i class="bi bi-person-fill"></i> Dados Pessoais
+                            </a>
+                            <a href="minhas-marcacoes.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-event"></i> Minhas Consultas
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action" 
+                               onclick="mostrarSecao('historico')">
+                                <i class="bi bi-clock-history"></i> Histórico Médico
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action" 
+                               onclick="mostrarSecao('documentos')">
+                                <i class="bi bi-file-earmark-text"></i> Documentos
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action" 
+                               onclick="mostrarSecao('configuracoes')">
+                                <i class="bi bi-gear"></i> Configurações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTEÚDO PRINCIPAL -->
+                <div class="col-lg-9">
+                    
+                    <!-- DADOS PESSOAIS -->
+                    <div id="secaoDadosPessoais" class="secao-perfil">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white">
+                                <h4 class="mb-0"><i class="bi bi-person-fill text-primary"></i> Dados Pessoais</h4>
+                            </div>
+                            <div class="card-body p-4">
+                                <form id="formDadosPessoais">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Nome</label>
+                                            <input type="text" id="nome" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Apelido</label>
+                                            <input type="text" id="apelido" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Data de Nascimento</label>
+                                            <input type="date" id="dataNascimento" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">NIF</label>
+                                            <input type="text" id="nif" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" id="email" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Telefone</label>
+                                            <input type="tel" id="telefone" class="form-control">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Endereço</label>
+                                            <input type="text" id="endereco" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Código Postal</label>
+                                            <input type="text" id="codigoPostal" class="form-control">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <label class="form-label">Cidade</label>
+                                            <input type="text" id="cidade" class="form-control">
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="bi bi-save"></i> Guardar Alterações
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONSULTAS -->
+                    <div id="secaoConsultas" class="secao-perfil" style="display: none;">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0"><i class="bi bi-calendar-event text-primary"></i> Próximas Consultas</h4>
+                                <a href="marcacao.html" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-plus-lg"></i> Nova Marcação
+                                </a>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Data</th>
+                                                <th>Hora</th>
+                                                <th>Médico</th>
+                                                <th>Serviço</th>
+                                                <th>Estado</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>15/11/2025</td>
+                                                <td>10:00</td>
+                                                <td>Dra. Ana Rodrigues</td>
+                                                <td>Consulta de Dermatologia</td>
+                                                <td><span class="badge bg-success">Confirmada</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-danger" 
+                                                            onclick="cancelarConsulta(1)">
+                                                        Cancelar
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>22/11/2025</td>
+                                                <td>14:30</td>
+                                                <td>Dr. Miguel Santos</td>
+                                                <td>Mapeamento de Sinais</td>
+                                                <td><span class="badge bg-warning">Pendente</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-danger" 
+                                                            onclick="cancelarConsulta(2)">
+                                                        Cancelar
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HISTÓRICO -->
+                    <div id="secaoHistorico" class="secao-perfil" style="display: none;">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white">
+                                <h4 class="mb-0"><i class="bi bi-clock-history text-primary"></i> Histórico de Consultas</h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Consulta de Dermatologia</h6>
+                                            <small class="text-muted">05/10/2025</small>
+                                        </div>
+                                        <p class="mb-1"><strong>Médico:</strong> Dr. Miguel Santos</p>
+                                        <p class="mb-1"><strong>Diagnóstico:</strong> Dermatite Seborreica</p>
+                                        <small class="text-muted">Tratamento prescrito: Shampoo medicamentoso</small>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Tratamento a Laser</h6>
+                                            <small class="text-muted">12/09/2025</small>
+                                        </div>
+                                        <p class="mb-1"><strong>Médico:</strong> Dra. Ana Rodrigues</p>
+                                        <p class="mb-1"><strong>Procedimento:</strong> Depilação a Laser - Facial</p>
+                                        <small class="text-muted">Sessão 2 de 6</small>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Consulta de Avaliação</h6>
+                                            <small class="text-muted">20/08/2025</small>
+                                        </div>
+                                        <p class="mb-1"><strong>Médico:</strong> Dr. Carlos Mendes</p>
+                                        <p class="mb-1"><strong>Motivo:</strong> Queda de Cabelo</p>
+                                        <small class="text-muted">Exames solicitados: Hemograma, Ferroserica</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DOCUMENTOS -->
+                    <div id="secaoDocumentos" class="secao-perfil" style="display: none;">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white">
+                                <h4 class="mb-0"><i class="bi bi-file-earmark-text text-primary"></i> Meus Documentos</h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Documento</th>
+                                                <th>Tipo</th>
+                                                <th>Data</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><i class="bi bi-file-pdf text-danger"></i> Receita Médica - Out/2025</td>
+                                                <td>Receita</td>
+                                                <td>05/10/2025</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">
+                                                        <i class="bi bi-download"></i> Download
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="bi bi-file-pdf text-danger"></i> Exames Laboratoriais</td>
+                                                <td>Exame</td>
+                                                <td>25/08/2025</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">
+                                                        <i class="bi bi-download"></i> Download
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="bi bi-file-pdf text-danger"></i> Relatório de Consulta</td>
+                                                <td>Relatório</td>
+                                                <td>20/08/2025</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary">
+                                                        <i class="bi bi-download"></i> Download
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONFIGURAÇÕES -->
+                    <div id="secaoConfiguracoes" class="secao-perfil" style="display: none;">
+                        <div class="card border-0 shadow-sm mb-3">
+                            <div class="card-header bg-white">
+                                <h4 class="mb-0"><i class="bi bi-bell text-primary"></i> Notificações</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="notifEmail" checked>
+                                    <label class="form-check-label" for="notifEmail">
+                                        Receber notificações por email
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="notifSMS">
+                                    <label class="form-check-label" for="notifSMS">
+                                        Receber notificações por SMS
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="lembretesConsulta" checked>
+                                    <label class="form-check-label" for="lembretesConsulta">
+                                        Lembretes de consultas agendadas
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="newsletter" checked>
+                                    <label class="form-check-label" for="newsletter">
+                                        Newsletter com dicas de saúde
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white">
+                                <h4 class="mb-0"><i class="bi bi-shield-lock text-primary"></i> Alterar Senha</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="formAlterarSenha">
+                                    <div class="mb-3">
+                                        <label class="form-label">Senha Atual</label>
+                                        <input type="password" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Nova Senha</label>
+                                        <input type="password" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Confirmar Nova Senha</label>
+                                        <input type="password" class="form-control" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-key"></i> Alterar Senha
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer py-4 bg-dark text-white mt-5">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-0 text-muted">&copy; 2025 DermaCare. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/navbar-auth.js"></script>
+    <script src="assets/js/perfil.js"></script>
+</body>
+</html>

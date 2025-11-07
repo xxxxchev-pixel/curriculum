@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entre em contacto com a Clínica DermaCare. Estamos aqui para ajudar.">
+    <title>Contacto - DermaCare</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-heart-pulse-fill text-primary"></i>
+                <span class="fw-bold">DermaCare</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="servicos.html">Serviços</a></li>
+                    <li class="nav-item"><a class="nav-link" href="medicos.html">Médicos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contacto.html">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="bi bi-person-circle"></i> Login</a></li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-2" href="marcacao.html">
+                            <i class="bi bi-calendar-check"></i> Marcar Consulta
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="text-white mb-3">Contacte-nos</h1>
+            <p class="text-white">Estamos aqui para responder às suas questões</p>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                
+                <!-- FORMULÁRIO -->
+                <div class="col-lg-7">
+                    <div class="card border-0 shadow-sm p-4">
+                        <h3 class="mb-4">Envie-nos uma Mensagem</h3>
+                        
+                        <form id="contactForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Nome Completo *</label>
+                                    <input type="text" class="form-control" id="nome" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Telefone *</label>
+                                    <input type="tel" class="form-control" id="telefone" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Assunto *</label>
+                                    <select class="form-select" id="assunto" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="informacoes">Informações Gerais</option>
+                                        <option value="marcacao">Marcação de Consulta</option>
+                                        <option value="servicos">Serviços e Tratamentos</option>
+                                        <option value="reclamacao">Reclamação</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Mensagem *</label>
+                                    <textarea class="form-control" id="mensagem" rows="5" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="concordo" required>
+                                        <label class="form-check-label" for="concordo">
+                                            Concordo com a <a href="#" data-bs-toggle="modal" data-bs-target="#modalPrivacidade">política de privacidade</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="bi bi-send"></i> Enviar Mensagem
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div id="mensagemSucesso" class="alert alert-success mt-3" style="display: none;">
+                            <i class="bi bi-check-circle-fill"></i> Mensagem enviada com sucesso! Entraremos em contacto em breve.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INFORMAÇÕES -->
+                <div class="col-lg-5">
+                    
+                    <!-- Informações de Contacto -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body p-4">
+                            <h4 class="mb-4">Informações de Contacto</h4>
+                            
+                            <div class="contact-info-item mb-4">
+                                <div class="d-flex align-items-start">
+                                    <div class="contact-icon">
+                                        <i class="bi bi-geo-alt-fill text-primary fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h6 class="mb-1">Morada</h6>
+                                        <p class="text-muted mb-0">
+                                            Rua Exemplo, nº 123, 3º Andar<br>
+                                            1000-001 Lisboa<br>
+                                            Portugal
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-item mb-4">
+                                <div class="d-flex align-items-start">
+                                    <div class="contact-icon">
+                                        <i class="bi bi-telephone-fill text-primary fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h6 class="mb-1">Telefone</h6>
+                                        <p class="text-muted mb-0">+351 210 000 000</p>
+                                        <p class="text-muted mb-0"><small>Chamada para rede fixa nacional</small></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-item mb-4">
+                                <div class="d-flex align-items-start">
+                                    <div class="contact-icon">
+                                        <i class="bi bi-whatsapp text-primary fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h6 class="mb-1">WhatsApp</h6>
+                                        <p class="text-muted mb-0">+351 910 000 000</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-item mb-4">
+                                <div class="d-flex align-items-start">
+                                    <div class="contact-icon">
+                                        <i class="bi bi-envelope-fill text-primary fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h6 class="mb-1">Email</h6>
+                                        <p class="text-muted mb-0">geral@dermacare.pt</p>
+                                        <p class="text-muted mb-0">marcacoes@dermacare.pt</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-item">
+                                <div class="d-flex align-items-start">
+                                    <div class="contact-icon">
+                                        <i class="bi bi-clock-fill text-primary fs-3"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h6 class="mb-1">Horário</h6>
+                                        <p class="text-muted mb-0">
+                                            Segunda a Sexta: 9h00 - 19h00<br>
+                                            Sábado: 9h00 - 13h00<br>
+                                            Domingo: Fechado
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Redes Sociais -->
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h5 class="mb-3">Siga-nos</h5>
+                            <div class="d-flex gap-3">
+                                <a href="#" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-facebook"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-instagram"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-linkedin"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAPA -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h3 class="text-center mb-4">Como Chegar</h3>
+            <div class="ratio ratio-21x9">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.0791934229844!2d-9.145685484615962!3d38.71667997959566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19338b0b1b8c1b%3A0x5a4b8c9c8f8c8c8c!2sLisboa%2C%20Portugal!5e0!3m2!1spt-PT!2spt!4v1234567890123!5m2!1spt-PT!2spt" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+            
+            <div class="row mt-4 g-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-car-front-fill text-primary fs-1 mb-3"></i>
+                            <h5>De Carro</h5>
+                            <p class="text-muted mb-0">Estacionamento público próximo disponível</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-train-front-fill text-primary fs-1 mb-3"></i>
+                            <h5>Metro</h5>
+                            <p class="text-muted mb-0">Estação Marquês de Pombal (5 min a pé)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-bus-front-fill text-primary fs-1 mb-3"></i>
+                            <h5>Autocarro</h5>
+                            <p class="text-muted mb-0">Linhas 11, 22, 36 (paragem próxima)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ RÁPIDO -->
+    <section class="py-5">
+        <div class="container">
+            <h3 class="text-center mb-5">Perguntas Frequentes</h3>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="faq-item">
+                        <h5><i class="bi bi-question-circle-fill text-primary me-2"></i> Como marcar uma consulta?</h5>
+                        <p class="text-muted">
+                            Pode marcar através do nosso sistema online, por telefone (+351 210 000 000) 
+                            ou WhatsApp (+351 910 000 000).
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="faq-item">
+                        <h5><i class="bi bi-question-circle-fill text-primary me-2"></i> Aceitam seguros de saúde?</h5>
+                        <p class="text-muted">
+                            Sim, temos acordo com as principais seguradoras. Consulte-nos para confirmar 
+                            se o seu seguro está incluído.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="faq-item">
+                        <h5><i class="bi bi-question-circle-fill text-primary me-2"></i> Quanto tempo dura uma consulta?</h5>
+                        <p class="text-muted">
+                            As consultas têm duração aproximada de 30-45 minutos, dependendo do tipo 
+                            de avaliação necessária.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="faq-item">
+                        <h5><i class="bi bi-question-circle-fill text-primary me-2"></i> Posso cancelar a marcação?</h5>
+                        <p class="text-muted">
+                            Sim, pedimos que cancele com pelo menos 24 horas de antecedência através 
+                            do sistema online ou por telefone.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Privacidade -->
+    <div class="modal fade" id="modalPrivacidade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Política de Privacidade</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Proteção de Dados Pessoais</h6>
+                    <p>
+                        A DermaCare compromete-se a proteger a sua privacidade e os seus dados pessoais 
+                        de acordo com o Regulamento Geral de Proteção de Dados (RGPD).
+                    </p>
+                    
+                    <h6>Recolha de Dados</h6>
+                    <p>
+                        Os dados pessoais recolhidos através deste formulário destinam-se exclusivamente 
+                        ao contacto e resposta às suas questões. Não serão partilhados com terceiros.
+                    </p>
+
+                    <h6>Seus Direitos</h6>
+                    <ul>
+                        <li>Direito de acesso aos seus dados</li>
+                        <li>Direito de retificação</li>
+                        <li>Direito ao apagamento</li>
+                        <li>Direito de oposição</li>
+                    </ul>
+
+                    <p class="mb-0">
+                        Para exercer os seus direitos ou esclarecer dúvidas, contacte: 
+                        <strong>privacidade@dermacare.pt</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="mb-3">
+                        <i class="bi bi-heart-pulse-fill text-primary"></i>
+                        DermaCare
+                    </h5>
+                    <p class="text-muted">
+                        Clínica dermatológica especializada em cuidados com a pele.
+                    </p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="mb-3">Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-muted">Início</a></li>
+                        <li><a href="servicos.html" class="text-muted">Serviços</a></li>
+                        <li><a href="medicos.html" class="text-muted">Médicos</a></li>
+                        <li><a href="contacto.html" class="text-muted">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="mb-3">Horário</h6>
+                    <ul class="list-unstyled text-muted">
+                        <li>Segunda a Sexta: 9h-19h</li>
+                        <li>Sábado: 9h-13h</li>
+                        <li>Domingo: Fechado</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="mb-3">Contacto</h6>
+                    <ul class="list-unstyled text-muted">
+                        <li><i class="bi bi-geo-alt-fill text-primary"></i> Rua Exemplo, 123, Lisboa</li>
+                        <li><i class="bi bi-telephone-fill text-primary"></i> +351 210 000 000</li>
+                        <li><i class="bi bi-envelope-fill text-primary"></i> geral@dermacare.pt</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="text-center">
+                <p class="mb-0 text-muted">&copy; 2025 DermaCare. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/navbar-auth.js"></script>
+    <script src="assets/js/contacto.js"></script>
+</body>
+</html>

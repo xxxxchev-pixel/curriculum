@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Crie a sua conta na Clínica DermaCare.">
+    <title>Registo - DermaCare</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+    
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-heart-pulse-fill text-primary"></i>
+                <span class="fw-bold">DermaCare</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="servicos.html">Serviços</a></li>
+                    <li class="nav-item"><a class="nav-link" href="medicos.html">Médicos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- REGISTO SECTION -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    
+                    <div class="text-center mb-4">
+                        <i class="bi bi-person-plus text-primary" style="font-size: 4rem;"></i>
+                        <h2 class="mt-3">Criar Conta</h2>
+                        <p class="text-muted">Preencha os dados abaixo para se registar</p>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            
+                            <form id="registoForm">
+                                
+                                <h5 class="mb-3">Dados Pessoais</h5>
+                                
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nome *</label>
+                                        <input type="text" class="form-control" id="nome" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Apelido *</label>
+                                        <input type="text" class="form-control" id="apelido" required>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Data de Nascimento *</label>
+                                        <input type="date" class="form-control" id="dataNascimento" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Género *</label>
+                                        <select class="form-select" id="genero" required>
+                                            <option value="">Selecione...</option>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Feminino</option>
+                                            <option value="O">Outro</option>
+                                            <option value="P">Prefiro não dizer</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">NIF *</label>
+                                    <input type="text" class="form-control" id="nif" 
+                                           placeholder="123456789" maxlength="9" required>
+                                </div>
+
+                                <hr class="my-4">
+                                <h5 class="mb-3">Contacto</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="email" 
+                                           placeholder="seu@email.com" required>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Telefone *</label>
+                                        <input type="tel" class="form-control" id="telefone" 
+                                               placeholder="+351 910 000 000" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Telemóvel</label>
+                                        <input type="tel" class="form-control" id="telemovel" 
+                                               placeholder="+351 960 000 000">
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+                                <h5 class="mb-3">Morada</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Endereço *</label>
+                                    <input type="text" class="form-control" id="endereco" 
+                                           placeholder="Rua, Nº, Andar" required>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Código Postal *</label>
+                                        <input type="text" class="form-control" id="codigoPostal" 
+                                               placeholder="1000-001" required>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="form-label">Cidade *</label>
+                                        <input type="text" class="form-control" id="cidade" required>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+                                <h5 class="mb-3">Credenciais de Acesso</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Senha *</label>
+                                    <input type="password" class="form-control" id="senha" 
+                                           placeholder="Mínimo 8 caracteres" required>
+                                    <div class="form-text">
+                                        A senha deve ter no mínimo 8 caracteres, incluindo letras e números.
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Confirmar Senha *</label>
+                                    <input type="password" class="form-control" id="confirmarSenha" required>
+                                </div>
+
+                                <div id="senhaErro" class="alert alert-danger" style="display: none;">
+                                    <i class="bi bi-exclamation-triangle-fill"></i> 
+                                    As senhas não coincidem.
+                                </div>
+
+                                <hr class="my-4">
+                                <h5 class="mb-3">Informações Adicionais</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Seguro de Saúde</label>
+                                    <select class="form-select" id="seguro">
+                                        <option value="">Não tenho seguro</option>
+                                        <option value="multicare">Multicare</option>
+                                        <option value="advancecare">AdvanceCare</option>
+                                        <option value="mediswiss">MediSwiss</option>
+                                        <option value="medicare">Medicare</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Número do Seguro</label>
+                                    <input type="text" class="form-control" id="numeroSeguro">
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="termos" required>
+                                        <label class="form-check-label" for="termos">
+                                            Aceito os <a href="#" data-bs-toggle="modal" data-bs-target="#modalTermos">
+                                            termos e condições</a> e a 
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#modalPrivacidade">
+                                            política de privacidade</a>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="newsletter">
+                                        <label class="form-check-label" for="newsletter">
+                                            Quero receber newsletters e informações sobre saúde da pele
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100 mb-3">
+                                    <i class="bi bi-person-check"></i> Criar Conta
+                                </button>
+
+                                <div class="text-center">
+                                    <p class="text-muted mb-0">
+                                        Já tem conta? 
+                                        <a href="login.html" class="text-decoration-none">
+                                            Entre aqui
+                                        </a>
+                                    </p>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Termos -->
+    <div class="modal fade" id="modalTermos" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Termos e Condições</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Aceitação dos Termos</h6>
+                    <p>Ao criar uma conta na DermaCare, você concorda com estes termos e condições.</p>
+                    
+                    <h6>2. Uso da Conta</h6>
+                    <p>Você é responsável por manter a confidencialidade da sua conta e senha.</p>
+
+                    <h6>3. Marcações</h6>
+                    <p>As marcações estão sujeitas a disponibilidade e confirmação pela clínica.</p>
+
+                    <h6>4. Cancelamentos</h6>
+                    <p>Cancelamentos devem ser feitos com 24 horas de antecedência.</p>
+
+                    <h6>5. Privacidade</h6>
+                    <p>Seus dados serão tratados de acordo com nossa política de privacidade.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Privacidade -->
+    <div class="modal fade" id="modalPrivacidade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Política de Privacidade</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Proteção de Dados Pessoais</h6>
+                    <p>
+                        A DermaCare compromete-se a proteger a sua privacidade de acordo com o RGPD.
+                    </p>
+                    
+                    <h6>Dados Recolhidos</h6>
+                    <p>Recolhemos apenas os dados necessários para prestar nossos serviços médicos.</p>
+
+                    <h6>Uso dos Dados</h6>
+                    <ul>
+                        <li>Gestão de consultas e tratamentos</li>
+                        <li>Comunicação com pacientes</li>
+                        <li>Melhoria dos serviços</li>
+                        <li>Cumprimento de obrigações legais</li>
+                    </ul>
+
+                    <h6>Seus Direitos</h6>
+                    <p>Você tem direito a aceder, retificar, apagar e opor-se ao tratamento dos seus dados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer py-4 bg-dark text-white mt-5">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-0 text-muted">&copy; 2025 DermaCare. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/registo.js"></script>
+</body>
+</html>
