@@ -297,7 +297,10 @@ button {
   color: #fff; 
   border-radius: 999px; 
   font-weight: 700; 
-  box-shadow: 0 6px 18px rgba(255,102,0,.35); 
+  box-shadow: 0 6px 18px rgba(255,102,0,.35);
+  width: auto !important;
+  display: inline-flex !important;
+  margin: 0 !important;
 }
 
 .header-icon.btn-auth:hover { 
