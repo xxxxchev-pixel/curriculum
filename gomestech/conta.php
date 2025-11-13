@@ -86,22 +86,72 @@ $mysqli->close();
             .form-grid{grid-template-columns:1fr}
             .btn-save{grid-column:1}
         }
+        .header-custom{background:var(--bg-card);padding:20px 0;border-bottom:1px solid var(--border-color);box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+        .header-custom .container{max-width:1400px;margin:0 auto;padding:0 24px;display:flex !important;flex-direction:row !important;align-items:center !important;justify-content:space-between !important}
+        .header-custom .logo{font-size:28px;font-weight:900;color:var(--color-primary);text-decoration:none;flex-shrink:0}
+        .header-icons{display:flex !important;flex-direction:row !important;gap:32px;align-items:center !important;flex-wrap:nowrap !important}
+        .header-icon-item{display:flex !important;flex-direction:row !important;align-items:center;gap:8px;color:var(--text-primary);text-decoration:none;font-weight:600;font-size:15px;transition:color 0.3s ease;white-space:nowrap}
+        .header-icon-item:hover{color:var(--color-primary)}
+        .header-icon-item svg{flex-shrink:0}
+        .btn-login-register{display:inline-flex !important;flex-direction:row !important;align-items:center;gap:10px;padding:12px 24px;background:linear-gradient(135deg,#FF6A00 0%,#FF8534 100%);color:white !important;text-decoration:none;font-weight:700;font-size:15px;border-radius:10px;box-shadow:0 4px 12px rgba(255,106,0,0.25);transition:all 0.3s ease;white-space:nowrap}
+        .btn-login-register:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,106,0,0.35)}
     </style>
 </head>
 <body>
-    <header class="site-header with-tagline">
-        <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-lg)">
-            <div class="logo-wrapper">
-                <h1><a href="index.php" style="color:var(--color-primary);text-decoration:none">GomesTech</a></h1>
+    <header class="header-custom">
+        <div class="container">
+            <a href="index.php" class="logo">🔶 GomesTech</a>
+            <div class="header-icons">
+                <a href="catalogo.php" class="header-icon-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                    </svg>
+                    <span>Catálogo</span>
+                </a>
+                <a href="comparacao.php" class="header-icon-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 15v6M12 9v12M6 3v18"/>
+                    </svg>
+                    <span>Comparar</span>
+                </a>
+                <a href="favoritos.php" class="header-icon-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 22l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
+                    </svg>
+                    <span>Favoritos</span>
+                </a>
+                <a href="carrinho.php" class="header-icon-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                    <?php if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0): ?>
+                        <span class="badge"><?php echo count($_SESSION['cart']); ?></span>
+                    <?php endif; ?>
+                </a>
+                <?php if(isset($_SESSION['user_id'])): ?>
+                    <a href="conta.php" class="btn-login-register">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <?php echo htmlspecialchars(explode(' ',$_SESSION['user_nome'])[0]); ?>
+                    </a>
+                <?php else: ?>
+                    <a href="login.php" class="btn-login-register">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                            <path d="M10 17l5-5-5-5"/>
+                            <line x1="15" y1="12" x2="3" y2="12"/>
+                        </svg>
+                        Login e Registo
+                    </a>
+                <?php endif; ?>
             </div>
-            <nav style="display:flex;gap:var(--spacing-lg);align-items:center">
-                <?php if(isset($_SESSION['user_id'])):?>
-                    <a href="conta.php">👤 <?php echo htmlspecialchars(explode(' ',$_SESSION['user_nome'])[0]);?></a>
-                    <a href="logout.php" style="padding:var(--spacing-sm) var(--spacing-lg);background:#dc3545;color:white;border-radius:var(--radius-md);text-decoration:none;font-weight:600">Sair</a>
-                <?php else:?>
-                    <a href="login.php" class="btn-auth" style="width:auto;padding:10px 16px;display:inline-flex;align-items:center;gap:8px;">Login e Registo</a>
-                <?php endif;?>
-            </nav>
         </div>
     </header>
     <main class="account-container">

@@ -55,8 +55,8 @@ foreach ($ids as $id) {
       <div class="favorites-header">
         <h2 class="section-title">❤️ Os meus Favoritos</h2>
         <div class="favorites-actions">
-          <button class="btn-secondary btn-clear" onclick="clearFavorites()">Limpar Favoritos</button>
-          <a class="btn-primary link-add" href="categorias/catalogo.php" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 14px 24px; font-size: 16px; font-weight: 600;">+ Adicionar mais</a>
+          <button class="btn-secondary btn-clear" onclick="clearFavorites()" style="background: transparent; border: 2px solid var(--color-danger); color: var(--color-danger); padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;">Limpar Favoritos</button>
+          <a class="btn-primary link-add" href="catalogo.php" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; font-size: 16px; font-weight: 700; background: linear-gradient(135deg, var(--color-primary) 0%, #FF8534 100%); color: white; border-radius: 10px; transition: all 0.3s ease;">+ Adicionar mais</a>
         </div>
       </div>
 
@@ -64,7 +64,7 @@ foreach ($ids as $id) {
         <div class="favorites-empty">
           <h3>Sem favoritos ainda</h3>
           <p>Guarda os teus produtos preferidos para veres mais tarde.</p>
-          <a href="categorias/catalogo.php" class="btn-primary" style="display:inline-block; text-decoration:none; padding: 14px 28px; font-size: 16px; font-weight: 600;">Ver Catálogo</a>
+          <a href="catalogo.php" class="btn-primary" style="display:inline-block; text-decoration:none; padding: 16px 32px; font-size: 16px; font-weight: 700; background: linear-gradient(135deg, var(--color-primary) 0%, #FF8534 100%); color: white; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(255, 106, 0, 0.3);">Ver Catálogo</a>
         </div>
       <?php else: ?>
         <div class="favorites-grid">

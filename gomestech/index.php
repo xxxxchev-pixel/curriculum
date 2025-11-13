@@ -33,13 +33,18 @@ if (!empty($products) && is_array($products)) {
             $featured_products[] = $product;
         }
     }
-    // Se não houver nenhum destaque, mostrar os primeiros 8 produtos
+    // LIMITAR A 6 PRODUTOS PARA AMOSTRA NO INDEX
+    // Se não houver nenhum destaque, mostrar os primeiros 6 produtos
     if (empty($featured_products)) {
-        $featured_products = array_slice($products, 0, 8);
+        $featured_products = array_slice($products, 0, 6);
+    } else {
+        $featured_products = array_slice($featured_products, 0, 6);
     }
-    // Se não houver ofertas, mostrar os primeiros 8 produtos
+    // Se não houver ofertas, mostrar os primeiros 6 produtos
     if (empty($special_offers)) {
-        $special_offers = array_slice($products, 0, 8);
+        $special_offers = array_slice($products, 0, 6);
+    } else {
+        $special_offers = array_slice($special_offers, 0, 6);
     }
 }
 
@@ -369,7 +374,7 @@ if (empty($products)) {
                 </a>
                 
                 <!-- Search Bar -->
-                <form action="categorias/catalogo.php" method="GET" class="search-bar">
+                <form action="catalogo.php" method="GET" class="search-bar">
                     <input 
                         type="search" 
                         name="q" 
@@ -392,7 +397,7 @@ if (empty($products)) {
                     </button>   
                     
                     <!-- Catálogo -->
-                    <a href="categorias/catalogo.php" class="header-icon">
+                    <a href="catalogo.php" class="header-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="3" width="7" height="7"/>
                             <rect x="14" y="3" width="7" height="7"/>
@@ -521,7 +526,7 @@ if (empty($products)) {
             <div class="hero-content">
                 <h1 class="hero-title">Black Friday 2025</h1>
                 <p class="hero-subtitle">Descontos até 50% em tecnologia premium. Ofertas exclusivas por tempo limitado!</p>
-                <a href="categorias/catalogo.php" class="btn btn-primary" style="background: white; color: #FF6A00; display: inline-flex; font-size: 1.125rem;">
+                <a href="catalogo.php" class="btn btn-primary" style="background: white; color: #FF6A00; display: inline-flex; font-size: 1.125rem;">
                     Ver Ofertas 🔥
                 </a>
             </div>
@@ -535,7 +540,7 @@ if (empty($products)) {
             <div class="hero-content">
                 <h1 class="hero-title">🚚 Envio Grátis</h1>
                 <p class="hero-subtitle">Em todas as compras acima de 50€. Recebe em 24-48h!</p>
-                <a href="categorias/catalogo.php" class="btn btn-primary" style="background: white; color: #4CAF50; display: inline-flex; font-size: 1.125rem;">
+                <a href="catalogo.php" class="btn btn-primary" style="background: white; color: #4CAF50; display: inline-flex; font-size: 1.125rem;">
                     Comprar Agora
                 </a>
             </div>
@@ -549,7 +554,7 @@ if (empty($products)) {
             <div class="hero-content">
                 <h1 class="hero-title">💰 Preços Acessíveis</h1>
                 <p class="hero-subtitle">A melhor tecnologia ao alcance de todos. Preços reduzidos em toda a loja!</p>
-                <a href="categorias/catalogo.php" class="btn btn-primary" style="background: white; color: #2196F3; display: inline-flex; font-size: 1.125rem;">
+                <a href="catalogo.php" class="btn btn-primary" style="background: white; color: #2196F3; display: inline-flex; font-size: 1.125rem;">
                     Explorar Catálogo
                 </a>
             </div>
@@ -722,7 +727,7 @@ if (empty($products)) {
     <section class="products-section">
         <div class="section-header">
             <h2 class="section-title">🔥 Produtos em Destaque</h2>
-            <a href="categorias/catalogo.php" class="btn btn-secondary">Ver Todos →</a>
+            <a href="catalogo.php" class="btn btn-secondary">Ver Todos →</a>
         </div>
         
         <div class="products-grid">
@@ -787,7 +792,7 @@ if (empty($products)) {
             <div class="footer-section">
                 <h3>Compras</h3>
                 <ul>
-                    <li><a href="categorias/catalogo.php">Catálogo</a></li>
+                    <li><a href="catalogo.php">Catálogo</a></li>
                     <li><a href="categorias/smartphones.php">Smartphones</a></li>
                     <li><a href="categorias/laptops.php">Laptops</a></li>
                     <li><a href="comparacao.php">Comparar Produtos</a></li>

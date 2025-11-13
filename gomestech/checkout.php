@@ -177,7 +177,7 @@ $mysqli->close();
             <div class="empty-cart">
                 <h2>🛒 O seu carrinho está vazio</h2>
                 <p>Adicione produtos para finalizar a compra</p>
-                <a href="categorias/catalogo.php" style="display:inline-block;margin-top:20px;padding:14px 32px;background:var(--color-primary);color:white;border-radius:8px;text-decoration:none;font-weight:600">Ver Catálogo</a>
+                <a href="catalogo.php" style="display:inline-block;margin-top:20px;padding:14px 32px;background:var(--color-primary);color:white;border-radius:8px;text-decoration:none;font-weight:600">Ver Catálogo</a>
             </div>
         <?php else:?>
             <h1>🛒 Finalizar Compra</h1>

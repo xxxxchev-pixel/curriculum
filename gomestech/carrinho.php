@@ -66,14 +66,41 @@ $total = $subtotal;
   <link rel="stylesheet" href="css/gomestech.css">
 </head>
 <body>
-  <header class="site-header with-tagline">
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-lg);">
-      <div class="logo-wrapper">
-        <h1><a href="index.php" style="color: var(--color-primary); text-decoration: none;">GomesTech</a></h1>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo-section">
+          <h1 class="logo">
+            <a href="index.php">GomesTech</a>
+          </h1>
+        </div>
+        
+        <div class="header-actions">
+          <a href="comparacao.php" class="header-icon" title="Comparar Produtos">
+            <span class="icon">⚖️</span>
+            <span class="label">Comparar</span>
+          </a>
+          <a href="favoritos.php" class="header-icon" title="Favoritos">
+            <span class="icon">❤️</span>
+            <span class="label">Favoritos</span>
+          </a>
+          <a href="carrinho.php" class="header-icon" title="Carrinho">
+            <span class="icon">🛒</span>
+            <span class="label">Carrinho</span>
+          </a>
+          <?php if(isset($_SESSION['user_id'])): ?>
+            <a href="conta.php" class="header-icon btn-user">
+              <span class="icon">👤</span>
+              <span class="label">Conta</span>
+            </a>
+          <?php else: ?>
+            <a href="login.php" class="header-icon btn-auth">
+              <span class="icon">🔐</span>
+              <span class="label">Login</span>
+            </a>
+          <?php endif; ?>
+        </div>
       </div>
-      
-      <nav style="display: flex; gap: var(--spacing-lg); align-items: center;">
-      </nav>
     </div>
   </header>
 
@@ -84,7 +111,7 @@ $total = $subtotal;
         <div class="empty-state">
           <div class="empty-state-icon">🛍️</div>
           <h3>O carrinho está vazio</h3>
-          <a href="categorias/catalogo.php" class="btn cart-checkout-btn" style="max-width: 300px; margin: var(--spacing-xl) auto 0;">Ir às Compras</a>
+          <a href="catalogo.php" class="btn cart-checkout-btn" style="max-width: 300px; margin: var(--spacing-xl) auto 0;">Ir às Compras</a>
         </div>
       <?php else: ?>
         <div class="cart-content">

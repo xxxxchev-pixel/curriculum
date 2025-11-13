@@ -200,6 +200,97 @@ CREATE TABLE `produtos` (
   CONSTRAINT `fk_produtos_brand` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Inserir produtos de exemplo de todas as categorias
+INSERT INTO `produtos` (`sku`, `marca`, `modelo`, `categoria`, `preco`, `preco_original`, `stock`, `imagem`, `destaque`, `novidade`, `produto_dia`, `descricao`) VALUES
+-- Smartphones
+('SM-001', 'Apple', 'iPhone 15 Pro 256GB', 'Smartphones', 1299.99, 1499.99, 50, 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500', 1, 1, 0, 'iPhone 15 Pro com chip A17 Pro, câmara de 48MP e design em titânio.'),
+('SM-002', 'Samsung', 'Galaxy S24 Ultra 512GB', 'Smartphones', 1399.99, 1599.99, 45, 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=500', 1, 1, 1, 'Galaxy S24 Ultra com S Pen, câmara de 200MP e ecrã Dynamic AMOLED 2X.'),
+('SM-003', 'Google', 'Pixel 8 Pro 256GB', 'Smartphones', 999.99, 1199.99, 30, 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500', 1, 0, 0, 'Google Pixel 8 Pro com Tensor G3 e melhor IA fotográfica do mercado.'),
+('SM-004', 'OnePlus', '12 Pro 512GB', 'Smartphones', 899.99, 1099.99, 25, 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500', 0, 1, 0, 'OnePlus 12 Pro com carregamento rápido 100W e Snapdragon 8 Gen 3.'),
+('SM-005', 'Xiaomi', '14 Ultra 512GB', 'Smartphones', 1199.99, 1399.99, 20, 'https://images.unsplash.com/photo-1592286927505-2fd3c4e5e3c4?w=500', 1, 1, 0, 'Xiaomi 14 Ultra com câmaras Leica e ecrã de 120Hz.'),
+
+-- Laptops
+('LP-001', 'Apple', 'MacBook Pro 16" M3 Max', 'Laptops', 3499.99, 3999.99, 15, 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500', 1, 1, 0, 'MacBook Pro com chip M3 Max, 36GB RAM e ecrã Liquid Retina XDR.'),
+('LP-002', 'Dell', 'XPS 15 9530 i9', 'Laptops', 2299.99, 2699.99, 20, 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500', 1, 0, 0, 'Dell XPS 15 com Intel Core i9, RTX 4060 e ecrã 4K OLED.'),
+('LP-003', 'Lenovo', 'ThinkPad X1 Carbon Gen 11', 'Laptops', 1799.99, 2099.99, 25, 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500', 0, 0, 0, 'Lenovo ThinkPad ultra-portátil com Intel Core i7 e 32GB RAM.'),
+('LP-004', 'HP', 'Spectre x360 14"', 'Laptops', 1599.99, 1899.99, 18, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500', 0, 1, 0, 'HP Spectre conversível com ecrã táctil OLED e Intel Evo.'),
+('LP-005', 'Asus', 'ROG Zephyrus G16', 'Laptops', 2499.99, 2899.99, 12, 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500', 1, 1, 0, 'Asus ROG gaming laptop com RTX 4080 e ecrã Mini LED.'),
+
+-- Tablets
+('TB-001', 'Apple', 'iPad Pro 12.9" M2 512GB', 'Tablets', 1499.99, 1699.99, 30, 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500', 1, 0, 0, 'iPad Pro com chip M2, ecrã Liquid Retina XDR e Apple Pencil.'),
+('TB-002', 'Samsung', 'Galaxy Tab S9 Ultra 512GB', 'Tablets', 1299.99, 1499.99, 25, 'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=500', 1, 1, 0, 'Galaxy Tab S9 Ultra com ecrã AMOLED de 14.6" e S Pen incluída.'),
+('TB-003', 'Lenovo', 'Tab P12 Pro', 'Tablets', 699.99, 899.99, 20, 'https://images.unsplash.com/photo-1585789575762-9f035d46f8ab?w=500', 0, 0, 0, 'Lenovo Tab P12 Pro com ecrã AMOLED e caneta opcional.'),
+('TB-004', 'Microsoft', 'Surface Pro 9', 'Tablets', 1199.99, 1399.99, 15, 'https://images.unsplash.com/photo-1587033411391-5d9e51cce126?w=500', 0, 1, 0, 'Microsoft Surface Pro 9 com Windows 11 e Type Cover.'),
+
+-- Wearables
+('WR-001', 'Apple', 'Watch Series 9 45mm GPS', 'Wearables', 479.99, 549.99, 40, 'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500', 1, 1, 0, 'Apple Watch Series 9 com sensor de temperatura e detecção de quedas.'),
+('WR-002', 'Samsung', 'Galaxy Watch 6 Classic 47mm', 'Wearables', 399.99, 479.99, 35, 'https://images.unsplash.com/photo-1617625802912-cde586faf331?w=500', 1, 0, 0, 'Samsung Galaxy Watch 6 Classic com moldura rotativa e sensor BioActive.'),
+('WR-003', 'Garmin', 'Fenix 7X Pro Solar', 'Wearables', 899.99, 1099.99, 15, 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500', 1, 0, 0, 'Garmin Fenix 7X Pro com GPS multi-banda e carregamento solar.'),
+('WR-004', 'Google', 'Pixel Watch 2', 'Wearables', 349.99, 399.99, 25, 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500', 0, 1, 0, 'Google Pixel Watch 2 com Fitbit integrado e Wear OS.'),
+
+-- TVs / Televisores
+('TV-001', 'Samsung', 'Neo QLED 65" QN95C', 'TVs', 2499.99, 2999.99, 10, 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500', 1, 1, 0, 'Samsung Neo QLED 4K com Quantum Matrix e Object Tracking Sound+.'),
+('TV-002', 'LG', 'OLED evo 65" C3', 'TVs', 2299.99, 2799.99, 12, 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500', 1, 1, 0, 'LG OLED evo com processador α9 Gen6 AI e Dolby Vision IQ.'),
+('TV-003', 'Sony', 'Bravia XR 65" A95K', 'TVs', 2999.99, 3499.99, 8, 'https://images.unsplash.com/photo-1593359863503-f598d-27de6f?w=500', 1, 0, 0, 'Sony Bravia QD-OLED com XR Triluminos Max e Acoustic Surface Audio+.'),
+('TV-004', 'Philips', 'OLED 55" 808', 'TVs', 1799.99, 2199.99, 15, 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500', 0, 0, 0, 'Philips OLED com Ambilight 4 lados e P5 AI Dual Engine.'),
+
+-- Audio
+('AU-001', 'Sony', 'WH-1000XM5', 'Audio', 399.99, 449.99, 50, 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500', 1, 1, 0, 'Sony WH-1000XM5 com cancelamento de ruído líder da indústria.'),
+('AU-002', 'Bose', 'QuietComfort Ultra', 'Audio', 449.99, 499.99, 40, 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500', 1, 0, 0, 'Bose QuietComfort Ultra com áudio espacial e ANC premium.'),
+('AU-003', 'Apple', 'AirPods Max', 'Audio', 579.99, 629.99, 30, 'https://images.unsplash.com/photo-1625644312452-6e8c6c8ed5b8?w=500', 1, 0, 0, 'Apple AirPods Max com áudio espacial e design premium em alumínio.'),
+('AU-004', 'JBL', 'Charge 5', 'Audio', 179.99, 219.99, 60, 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500', 0, 0, 0, 'JBL Charge 5 coluna portátil com IP67 e powerbank integrado.'),
+('AU-005', 'Marshall', 'Emberton II', 'Audio', 169.99, 199.99, 45, 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500', 0, 1, 0, 'Marshall Emberton II com som 360° e 30 horas de bateria.'),
+
+-- Auriculares
+('AUR-001', 'Apple', 'AirPods Pro 2ª Gen', 'Auriculares', 279.99, 299.99, 70, 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500', 1, 1, 0, 'AirPods Pro com chip H2, ANC adaptativo e áudio espacial.'),
+('AUR-002', 'Samsung', 'Galaxy Buds2 Pro', 'Auriculares', 229.99, 259.99, 55, 'https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=500', 1, 0, 0, 'Galaxy Buds2 Pro com ANC inteligente e áudio 360° com Dolby Atmos.'),
+('AUR-003', 'Sony', 'WF-1000XM5', 'Auriculares', 299.99, 329.99, 40, 'https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=500', 1, 1, 0, 'Sony WF-1000XM5 com melhor ANC e LDAC para áudio Hi-Res.'),
+('AUR-004', 'Bose', 'QuietComfort Earbuds II', 'Auriculares', 279.99, 319.99, 35, 'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=500', 0, 0, 0, 'Bose QC Earbuds II com ANC personalizado e ajuste perfeito.'),
+
+-- Headphones
+('HP-001', 'Sony', 'WH-1000XM5', 'Headphones', 399.99, 449.99, 45, 'https://images.unsplash.com/photo-1545127398-14699f92334b?w=500', 1, 1, 0, 'Sony WH-1000XM5 headphones premium com 30h de bateria.'),
+('HP-002', 'Bose', '700', 'Headphones', 379.99, 429.99, 35, 'https://images.unsplash.com/photo-1577174881658-0f30157f72c4?w=500', 1, 0, 0, 'Bose 700 com 11 níveis de cancelamento de ruído.'),
+('HP-003', 'Apple', 'AirPods Max', 'Headphones', 579.99, 629.99, 25, 'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=500', 1, 0, 0, 'AirPods Max com design premium e áudio espacial.'),
+('HP-004', 'Sennheiser', 'Momentum 4', 'Headphones', 349.99, 399.99, 30, 'https://images.unsplash.com/photo-1599669454699-248893623440?w=500', 0, 1, 0, 'Sennheiser Momentum 4 com 60h de bateria e som audiófilo.'),
+
+-- Consolas
+('CO-001', 'Sony', 'PlayStation 5 Slim', 'Consolas', 499.99, 549.99, 20, 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=500', 1, 1, 0, 'PlayStation 5 Slim com 1TB SSD e DualSense.'),
+('CO-002', 'Microsoft', 'Xbox Series X', 'Consolas', 499.99, 549.99, 18, 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=500', 1, 0, 0, 'Xbox Series X com 1TB e Game Pass.'),
+('CO-003', 'Nintendo', 'Switch OLED', 'Consolas', 349.99, 379.99, 35, 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=500', 1, 1, 0, 'Nintendo Switch OLED com ecrã de 7".'),
+
+-- Frigoríficos
+('FR-001', 'Samsung', 'Bespoke RB38C7B5D22', 'Frigoríficos', 1299.99, 1499.99, 8, 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=500', 1, 0, 0, 'Samsung Bespoke combinado No Frost com Twin Cooling Plus.'),
+('FR-002', 'LG', 'GMX945MC9F', 'Frigoríficos', 1799.99, 2099.99, 6, 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=500', 1, 1, 0, 'LG frigorífico americano InstaView Door-in-Door com dispensador.'),
+('FR-003', 'Bosch', 'KGN49AICP', 'Frigoríficos', 1099.99, 1299.99, 10, 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=500', 0, 0, 0, 'Bosch combinado No Frost com VitaFresh Pro.'),
+
+-- Máquinas de Lavar
+('ML-001', 'Samsung', 'WW90T554DTX', 'Máquinas de Lavar', 699.99, 849.99, 12, 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500', 1, 0, 0, 'Samsung máquina de lavar 9kg AddWash com AI Control.'),
+('ML-002', 'LG', 'F4WV909P2E', 'Máquinas de Lavar', 799.99, 949.99, 10, 'https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?w=500', 1, 1, 0, 'LG máquina de lavar 9kg com AI DD e Steam.'),
+('ML-003', 'Bosch', 'WAX32EH0ES', 'Máquinas de Lavar', 749.99, 899.99, 15, 'https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=500', 0, 0, 0, 'Bosch máquina de lavar 10kg com i-Dos.'),
+
+-- Micro-ondas
+('MW-001', 'Samsung', 'MG30T5018CG', 'Micro-ondas', 199.99, 249.99, 25, 'https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=500', 0, 0, 0, 'Samsung micro-ondas com grill 30L e Smart Moisture Sensor.'),
+('MW-002', 'Panasonic', 'NN-SD28HSGTG', 'Micro-ondas', 179.99, 229.99, 30, 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500', 0, 1, 0, 'Panasonic micro-ondas 23L com Inverter Technology.'),
+('MW-003', 'LG', 'NeoChef MH7265DPS', 'Micro-ondas', 219.99, 269.99, 20, 'https://images.unsplash.com/photo-1612528443702-f6741f70a049?w=500', 1, 0, 0, 'LG micro-ondas 32L com Smart Inverter e grill.'),
+
+-- Aspiradores
+('AS-001', 'Dyson', 'V15 Detect Absolute', 'Aspiradores', 699.99, 799.99, 15, 'https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500', 1, 1, 0, 'Dyson V15 Detect com laser para deteção de pó invisível.'),
+('AS-002', 'iRobot', 'Roomba j7+', 'Aspiradores', 799.99, 949.99, 12, 'https://images.unsplash.com/photo-1585421514738-01798e348b17?w=500', 1, 0, 0, 'iRobot Roomba j7+ com esvaziamento automático e PrecisionVision.'),
+('AS-003', 'Rowenta', 'X-Force Flex 11.60', 'Aspiradores', 449.99, 549.99, 20, 'https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?w=500', 0, 1, 0, 'Rowenta sem fios flexível com 45min de autonomia.'),
+
+-- Ar Condicionado
+('AC-001', 'Daikin', 'FTXM35R Perfera', 'Ar Condicionado', 899.99, 1099.99, 8, 'https://images.unsplash.com/photo-1631545806609-c8f0e1f97d7e?w=500', 1, 0, 0, 'Daikin Perfera split 12000 BTU com Filtro Flash Streamer.'),
+('AC-002', 'Mitsubishi', 'MSZ-LN35VGW', 'Ar Condicionado', 1099.99, 1299.99, 6, 'https://images.unsplash.com/photo-1634554939598-08d6025e99b8?w=500', 1, 1, 0, 'Mitsubishi split 12000 BTU com Wi-Fi e tecnologia 3D i-see.'),
+('AC-003', 'LG', 'PC12SQ Artcool', 'Ar Condicionado', 799.99, 999.99, 10, 'https://images.unsplash.com/photo-1602407294553-6ac9170b3ed0?w=500', 0, 0, 0, 'LG Artcool split 12000 BTU com design espelho.'),
+('AC-004', 'Fujitsu', 'ASYG12KPCA', 'Ar Condicionado', 749.99, 899.99, 12, 'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=500', 0, 0, 0, 'Fujitsu split 12000 BTU Eco com classificação A++.'),
+('AC-005', 'Samsung', 'AR12BXWXCWKNEU WindFree', 'Ar Condicionado', 849.99, 1049.99, 9, 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=500', 1, 1, 0, 'Samsung WindFree split 12000 BTU com tecnologia sem correntes de ar.'),
+
+-- Máquinas de Café
+('MC-001', 'De\'Longhi', 'Magnifica S ECAM22.110.B', 'Máquinas de Café', 449.99, 549.99, 20, 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500', 1, 0, 0, 'De\'Longhi automática com moinho integrado e Cappuccino System.'),
+('MC-002', 'Nespresso', 'Vertuo Next', 'Máquinas de Café', 169.99, 199.99, 35, 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=500', 0, 1, 0, 'Nespresso Vertuo Next com sistema Centrifusion.'),
+('MC-003', 'Sage', 'Barista Express SES875', 'Máquinas de Café', 699.99, 799.99, 12, 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=500', 1, 1, 0, 'Sage Barista Express com moinho cónico integrado.'),
+('MC-004', 'Krups', 'EA8108 Roma', 'Máquinas de Café', 399.99, 479.99, 18, 'https://images.unsplash.com/photo-1580933073521-dc49ac0d4e6a?w=500', 0, 0, 0, 'Krups Roma automática compacta com vaporizador.');
+
 -- =============================================================================
 -- TABELA: favoritos (Lista de Desejos)
 -- =============================================================================

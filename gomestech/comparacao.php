@@ -423,7 +423,7 @@ $mysqli->close();
             <div class="empty-compare">
                 <h2>📦 Nenhum produto selecionado</h2>
                 <p>Adicione produtos à comparação a partir do catálogo</p>
-                <a href="categorias/catalogo.php" class="btn-back" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">Ver Catálogo</a>
+                <a href="catalogo.php" class="btn-back" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">Ver Catálogo</a>
             </div>
         <?php else:?>
             <?php $colsClass = 'columns-'.min(max(count($produtos),1),3); ?>

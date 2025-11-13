@@ -34,7 +34,7 @@ if ($url) {
 
 if (!$p) {
   $mysqli->close();
-  header('Location: categorias/catalogo.php');
+  header('Location: catalogo.php');
   exit;
 }
 
@@ -50,23 +50,57 @@ $mysqli->close();
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/gomestech.css">
+  <link rel="stylesheet" href="css/product.css">
 </head>
 <body>
-  <header class="site-header with-tagline">
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-lg);">
-      <div class="logo-wrapper">
-        <h1><a href="index.php" style="color: var(--color-primary); text-decoration: none;">GomesTech</a></h1>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo-section">
+          <h1 class="logo">
+            <a href="index.php">GomesTech</a>
+          </h1>
+        </div>
+        
+        <div class="header-actions">
+          <a href="comparacao.php" class="header-icon" title="Comparar Produtos">
+            <span class="icon">⚖️</span>
+            <span class="label">Comparar</span>
+          </a>
+          <a href="favoritos.php" class="header-icon" title="Favoritos">
+            <span class="icon">❤️</span>
+            <span class="label">Favoritos</span>
+          </a>
+          <a href="carrinho.php" class="header-icon" title="Carrinho">
+            <span class="icon">🛒</span>
+            <span class="label">Carrinho</span>
+          </a>
+          <?php if(isset($_SESSION['user_id'])): ?>
+            <a href="conta.php" class="header-icon btn-user">
+              <span class="icon">👤</span>
+              <span class="label">Conta</span>
+            </a>
+          <?php else: ?>
+            <a href="login.php" class="header-icon btn-auth">
+              <span class="icon">🔐</span>
+              <span class="label">Login</span>
+            </a>
+          <?php endif; ?>
+        </div>
       </div>
-      
-      <nav style="display: flex; gap: var(--spacing-lg); align-items: center;">
-        <a href="index.php" style="color: var(--text-primary); font-weight: 500; text-decoration: none;">🏠 Início</a>
-        <a href="categorias/catalogo.php" style="color: var(--text-primary); font-weight: 500; text-decoration: none;">📦 Catálogo</a>
-      </nav>
     </div>
   </header>
 
   <main class="section">
     <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumbs">
+        <a href="index.php">Início</a>
+        <span>›</span>
+        <a href="catalogo.php">Catálogo</a>
+        <span>›</span>
+        <span><?php echo htmlspecialchars($p['categoria']); ?></span>
+      </nav>
       <div class="product-detail">
         <div class="product-images">
           <img src="<?php echo htmlspecialchars($p['imagem'] ?? 'https://via.placeholder.com/600x400/FF6A00/FFFFFF?text=' . urlencode($p['marca'])); ?>" 
@@ -84,6 +118,26 @@ $mysqli->close();
             <p class="price-label">Preço</p>
             <p class="price-value">€<?php echo number_format($p['preco'], 2, ',', '.'); ?></p>
             <p class="price-store">Disponível em <?php echo htmlspecialchars($p['loja']); ?></p>
+          </div>
+
+          <!-- Benefícios -->
+          <div class="product-benefits">
+            <div class="benefit-badge">
+              <span class="icon">🚚</span>
+              <span>Envio Grátis</span>
+            </div>
+            <div class="benefit-badge">
+              <span class="icon">🔄</span>
+              <span>Devolução 30 dias</span>
+            </div>
+            <div class="benefit-badge">
+              <span class="icon">🛡️</span>
+              <span>Garantia 2 anos</span>
+            </div>
+            <div class="benefit-badge">
+              <span class="icon">💳</span>
+              <span>Pagamento seguro</span>
+            </div>
           </div>
 
           <p class="description"><?php echo htmlspecialchars($p['descricao']); ?></p>
@@ -139,30 +193,6 @@ $mysqli->close();
       <p>&copy; 2025 GomesTech - Tecnologia, Inovação e Preço Justo</p>
     </div>
   </footer>
-
-  <style>
-    .product-detail{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:40px}
-    .product-images{display:flex;justify-content:center;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px}
-    .main-image{max-width:100%;max-height:500px;object-fit:contain}
-    .product-category{display:inline-block;background:var(--accent);color:#000;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;text-transform:uppercase;margin-bottom:12px}
-    .product-info h1{font-size:36px;font-weight:900;margin-bottom:8px}
-    .product-info .brand{color:var(--text-muted);font-size:18px;margin-bottom:24px}
-    .price-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:24px 0}
-    .price-label{font-size:14px;color:var(--text-muted);margin-bottom:8px}
-    .price-value{font-size:42px;font-weight:900;color:var(--accent);margin-bottom:8px}
-    .price-store{font-size:14px;color:var(--text-muted)}
-    .description{line-height:1.8;color:var(--text-muted);margin:24px 0}
-    .product-actions{margin:32px 0}
-    .product-actions form{width:100%}
-    .qty-selector{display:flex;align-items:center;gap:12px;margin-bottom:20px;justify-content:center}
-    .qty-selector label{font-weight:600;color:var(--text)}
-    .qty-selector input{width:80px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);text-align:center;font-size:16px;font-weight:600}
-    .action-buttons{display:flex;gap:12px;align-items:stretch;width:100%}
-    .action-buttons .btn,.action-buttons .btn-secondary{flex:1;font-size:1rem;padding:16px;white-space:nowrap;border:none;cursor:pointer}
-    .btn-secondary{background:transparent;border:2px solid var(--accent)!important;color:var(--accent);border-radius:8px;font-weight:700;transition:all 0.3s}
-    .btn-secondary:hover{background:var(--accent);color:#000;transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,106,0,0.3)}
-    @media(max-width:900px){.product-detail{grid-template-columns:1fr;gap:30px}}
-  </style>
 
   <!-- Scroll to Top Button -->
   <button class="scroll-to-top" title="Voltar ao topo">↑</button>
