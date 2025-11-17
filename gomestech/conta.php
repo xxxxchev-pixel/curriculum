@@ -12,38 +12,78 @@ $success = '';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = trim($_POST['nome'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $telefone = trim($_POST['telefone'] ?? '');
-    $morada = trim($_POST['morada'] ?? '');
-    $nif = trim($_POST['nif'] ?? '');
-    $codigo_postal = trim($_POST['codigo_postal'] ?? '');
-    
-    if (empty($nome) || empty($email) || empty($nif) || empty($codigo_postal)) {
-        $error = 'Nome, email, NIF e Código Postal são obrigatórios.';
-    } elseif (!preg_match('/^\d{9}$/', $nif)) {
-        $error = 'O NIF deve ter 9 dígitos.';
-    } elseif (!preg_match('/^\d{4}-\d{3}$/', $codigo_postal)) {
-        $error = 'O Código Postal deve ter o formato XXXX-XXX.';
-    } else {
-        $stmt = $mysqli->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
-        $user_id = $_SESSION['user_id'];
-        $stmt->bind_param("si", $email, $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    // Verificar se é alteração de senha ou de dados
+    if (isset($_POST['change_password'])) {
+        // Mudança de senha
+        $senha_atual = trim($_POST['senha_atual'] ?? '');
+        $nova_senha = trim($_POST['nova_senha'] ?? '');
+        $confirmar_senha = trim($_POST['confirmar_senha'] ?? '');
         
-        if ($result->num_rows > 0) {
-            $error = 'Este email já está a ser usado.';
+        if (empty($senha_atual) || empty($nova_senha) || empty($confirmar_senha)) {
+            $error = 'Todos os campos de senha são obrigatórios.';
+        } elseif ($nova_senha !== $confirmar_senha) {
+            $error = 'A nova senha e a confirmação não coincidem.';
+        } elseif (strlen($nova_senha) < 6) {
+            $error = 'A nova senha deve ter pelo menos 6 caracteres.';
         } else {
-            $stmt = $mysqli->prepare("UPDATE users SET nome = ?, email = ?, telefone = ?, morada = ?, nif = ?, codigo_postal = ? WHERE id = ?");
-            $stmt->bind_param("ssssssi", $nome, $email, $telefone, $morada, $nif, $codigo_postal, $user_id);
+            // Verificar senha atual
+            $user_id = $_SESSION['user_id'];
+            $stmt = $mysqli->prepare("SELECT password FROM users WHERE id = ?");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $user_data = $result->fetch_assoc();
             
-            if ($stmt->execute()) {
-                $_SESSION['user_nome'] = $nome;
-                $_SESSION['user_email'] = $email;
-                $success = 'Dados atualizados com sucesso!';
+            if (password_verify($senha_atual, $user_data['password'])) {
+                // Senha atual correta, atualizar para nova senha
+                $nova_senha_hash = password_hash($nova_senha, PASSWORD_DEFAULT);
+                $stmt = $mysqli->prepare("UPDATE users SET password = ? WHERE id = ?");
+                $stmt->bind_param("si", $nova_senha_hash, $user_id);
+                
+                if ($stmt->execute()) {
+                    $success = 'Senha alterada com sucesso!';
+                } else {
+                    $error = 'Erro ao alterar a senha.';
+                }
             } else {
-                $error = 'Erro ao atualizar dados.';
+                $error = 'Senha atual incorreta.';
+            }
+        }
+    } else {
+        // Atualização de dados pessoais
+        $nome = trim($_POST['nome'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $telefone = trim($_POST['telefone'] ?? '');
+        $morada = trim($_POST['morada'] ?? '');
+        $nif = trim($_POST['nif'] ?? '');
+        $codigo_postal = trim($_POST['codigo_postal'] ?? '');
+        
+        if (empty($nome) || empty($email) || empty($nif) || empty($codigo_postal)) {
+            $error = 'Nome, email, NIF e Código Postal são obrigatórios.';
+        } elseif (!preg_match('/^\d{9}$/', $nif)) {
+            $error = 'O NIF deve ter 9 dígitos.';
+        } elseif (!preg_match('/^\d{4}-\d{3}$/', $codigo_postal)) {
+            $error = 'O Código Postal deve ter o formato XXXX-XXX.';
+        } else {
+            $stmt = $mysqli->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
+            $user_id = $_SESSION['user_id'];
+            $stmt->bind_param("si", $email, $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            if ($result->num_rows > 0) {
+                $error = 'Este email já está a ser usado.';
+            } else {
+                $stmt = $mysqli->prepare("UPDATE users SET nome = ?, email = ?, telefone = ?, morada = ?, nif = ?, codigo_postal = ? WHERE id = ?");
+                $stmt->bind_param("ssssssi", $nome, $email, $telefone, $morada, $nif, $codigo_postal, $user_id);
+                
+                if ($stmt->execute()) {
+                    $_SESSION['user_nome'] = $nome;
+                    $_SESSION['user_email'] = $email;
+                    $success = 'Dados atualizados com sucesso!';
+                } else {
+                    $error = 'Erro ao atualizar dados.';
+                }
             }
         }
     }
@@ -67,9 +107,10 @@ $mysqli->close();
     <link rel="stylesheet" href="css/gomestech.css">
     <style>
         .account-container{max-width:900px;margin:40px auto;padding:0 20px}
-        .account-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:16px;padding:40px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+        .account-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:16px;padding:40px;box-shadow:0 4px 12px rgba(0,0,0,0.1);margin-bottom:30px}
         .account-header{margin-bottom:30px;border-bottom:2px solid var(--border-color);padding-bottom:20px}
         .account-header h1{font-size:28px;margin-bottom:8px;color:var(--text-primary)}
+        .section-title{font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:20px;display:flex;align-items:center;gap:10px}
         .form-grid{display:grid;gap:24px;grid-template-columns:1fr 1fr}
         .form-group{display:flex;flex-direction:column}
         .form-group.full-width{grid-column:1/-1}
@@ -82,6 +123,8 @@ $mysqli->close();
         .alert-error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
         .btn-save{padding:14px 32px;background:var(--color-primary);color:white;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;grid-column:1/-1}
         .btn-save:hover{background:#e55f00;transform:translateY(-2px);box-shadow:0 4px 12px rgba(255,106,0,0.3)}
+        .btn-danger{background:#dc3545;grid-column:1/-1}
+        .btn-danger:hover{background:#c82333}
         @media(max-width:768px){
             .form-grid{grid-template-columns:1fr}
             .btn-save{grid-column:1}
@@ -162,6 +205,8 @@ $mysqli->close();
             </div>
             <?php if($success):?><div class="alert alert-success">✅ <?php echo htmlspecialchars($success);?></div><?php endif;?>
             <?php if($error):?><div class="alert alert-error">⚠️ <?php echo htmlspecialchars($error);?></div><?php endif;?>
+            
+            <h2 class="section-title">📋 Dados Pessoais</h2>
             <form method="POST">
                 <div class="form-grid">
                     <div class="form-group full-width">
@@ -189,6 +234,28 @@ $mysqli->close();
                         <textarea id="morada" name="morada" placeholder="Rua, número, andar, apartamento, cidade"><?php echo htmlspecialchars($user['morada']??'');?></textarea>
                     </div>
                     <button type="submit" class="btn-save">💾 Guardar Alterações</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="account-card">
+            <h2 class="section-title">🔒 Alterar Senha</h2>
+            <form method="POST">
+                <input type="hidden" name="change_password" value="1">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="senha_atual">Senha Atual *</label>
+                        <input type="password" id="senha_atual" name="senha_atual" required placeholder="Digite sua senha atual">
+                    </div>
+                    <div class="form-group">
+                        <label for="nova_senha">Nova Senha *</label>
+                        <input type="password" id="nova_senha" name="nova_senha" required placeholder="Mínimo 6 caracteres" minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmar_senha">Confirmar Nova Senha *</label>
+                        <input type="password" id="confirmar_senha" name="confirmar_senha" required placeholder="Digite novamente a nova senha" minlength="6">
+                    </div>
+                    <button type="submit" class="btn-save btn-danger">🔐 Alterar Senha</button>
                 </div>
             </form>
         </div>
