@@ -1,9 +1,17 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config.php';
 
-logout_user();
+// Limpar todas as variáveis de sessão
+$_SESSION = array();
 
-header('Location: /index.php');
+// Destruir a sessão
+if (isset($_COOKIE[session_name()])) {
+    setcookie(session_name(), '', time()-42000, '/');
+}
+
+session_destroy();
+
+// Redirecionar para a página inicial
+header('Location: ../index.php');
 exit;
 ?>

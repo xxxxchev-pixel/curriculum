@@ -444,6 +444,14 @@ if (empty($products)) {
                             </svg>
                             <span><?php echo htmlspecialchars(explode(' ', $_SESSION['user_nome'])[0]); ?></span>
                         </a>
+                        <a href="logout.php" class="header-icon" style="color: #DC3545;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16 17 21 12 16 7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            <span>Sair</span>
+                        </a>
                     <?php else: ?>
                         <a href="login.php" class="header-icon btn-auth">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -618,11 +626,14 @@ if (empty($products)) {
     <?php endif; ?>
     </section>
 
+    <!-- OVERLAY DO MENU -->
+    <div id="menuOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:none;transition:opacity 0.3s ease;"></div>
+
     <!-- MENU LATERAL DE CATEGORIAS -->
-    <nav id="sideMenu" class="side-menu" style="position:fixed;left:-280px;top:80px;width:260px;z-index:200;background:#fff;border-right:1px solid #eee;height:calc(100vh - 80px);padding:24px 0;transition:left 0.3s ease;overflow-y:auto;box-shadow:2px 0 8px rgba(0,0,0,0.1);">
+    <nav id="sideMenu" class="side-menu" style="position:fixed;left:-280px;top:0;width:260px;z-index:10000;background:#fff;border-right:1px solid #eee;height:100vh;padding:24px 0;transition:left 0.3s ease;overflow-y:auto;box-shadow:2px 0 12px rgba(0,0,0,0.15);">
         <div style="display:flex;justify-content:space-between;align-items:center;padding:0 24px 16px;">
-            <h3 style="font-size:1.1rem;color:#FF6A00;margin:0;">Menu de Categorias</h3>
-            <button id="sideMenuClose" style="background:none;border:none;font-size:24px;cursor:pointer;color:#666;">×</button>
+            <h3 style="font-size:1.1rem;color:#FF6A00;margin:0;font-weight:700;">Menu de Categorias</h3>
+            <button id="sideMenuClose" style="background:none;border:none;font-size:32px;cursor:pointer;color:#666;line-height:1;padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;">×</button>
         </div>
         <ul style="list-style:none;padding:0;margin:0;">
         <?php
@@ -793,8 +804,8 @@ if (empty($products)) {
                 <h3>Compras</h3>
                 <ul>
                     <li><a href="catalogo.php">Catálogo</a></li>
-                    <li><a href="categorias/smartphones.php">Smartphones</a></li>
-                    <li><a href="categorias/laptops.php">Laptops</a></li>
+                    <li><a href="categorias/catalogo.php?categoria=Smartphones">Smartphones</a></li>
+                    <li><a href="categorias/catalogo.php?categoria=Laptops">Laptops</a></li>
                     <li><a href="comparacao.php">Comparar Produtos</a></li>
                 </ul>
             </div>
@@ -830,21 +841,29 @@ if (empty($products)) {
         const sideMenu = document.getElementById('sideMenu');
         const sideMenuToggle = document.getElementById('sideMenuToggle');
         const sideMenuClose = document.getElementById('sideMenuClose');
+        const menuOverlay = document.getElementById('menuOverlay');
         let sideMenuOpen = false;
 
         function toggleSideMenu() {
             sideMenuOpen = !sideMenuOpen;
             if (sideMenuOpen) {
                 sideMenu.style.left = '0';
+                menuOverlay.style.display = 'block';
+                setTimeout(() => menuOverlay.style.opacity = '1', 10);
                 sideMenuToggle.style.transform = 'rotate(90deg)';
+                document.body.style.overflow = 'hidden';
             } else {
                 sideMenu.style.left = '-280px';
+                menuOverlay.style.opacity = '0';
+                setTimeout(() => menuOverlay.style.display = 'none', 300);
                 sideMenuToggle.style.transform = 'rotate(0deg)';
+                document.body.style.overflow = '';
             }
         }
 
         sideMenuToggle.addEventListener('click', toggleSideMenu);
         sideMenuClose.addEventListener('click', toggleSideMenu);
+        menuOverlay.addEventListener('click', toggleSideMenu);
 
         // Fechar menu ao clicar fora dele
         document.addEventListener('click', function(e) {

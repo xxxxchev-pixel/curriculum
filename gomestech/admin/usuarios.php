@@ -1,84 +1,120 @@
 <?php
-// Incluído por admin/index.php. Usa $users, $users_file
+// Incluído por admin/index.php. Usa $users da base de dados
 
-// Atualizar role
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_role'])) {
-    $email = $_POST['email'] ?? '';
-    $role = $_POST['role'] ?? 'user';
-    foreach ($users as &$u) {
-        if (($u['email'] ?? '') === $email) { $u['role'] = $role; break; }
-    }
-    unset($u);
-    $to_save = ['users' => $users];
-    file_put_contents($users_file, json_encode($to_save, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
-    echo '<div class="alert alert-success">👤 Role atualizado</div>';
+// Verificar se mysqli está disponível
+if (!isset($mysqli) || !$mysqli) {
+    $mysqli = db_connect();
 }
 
-// Reset de password (para 'changeme123')
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_pw'])) {
-    $email = $_POST['email'] ?? '';
-    foreach ($users as &$u) {
-        if (($u['email'] ?? '') === $email) { 
-            $u['password'] = password_hash('changeme123', PASSWORD_DEFAULT);
-            $u['must_change_password'] = true;
-            break; 
+// Atualizar role/admin
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_role'])) {
+    $user_id = intval($_POST['user_id'] ?? 0);
+    $is_admin = isset($_POST['is_admin']) ? 1 : 0;
+    
+    $stmt = $mysqli->prepare("UPDATE users SET is_admin = ? WHERE id = ?");
+    if ($stmt) {
+        $stmt->bind_param('ii', $is_admin, $user_id);
+        $stmt->execute();
+        $stmt->close();
+        echo '<div class="alert alert-success">👤 Permissões atualizadas</div>';
+        
+        // Recarregar users
+        $users = [];
+        $users_result = $mysqli->query("SELECT * FROM users ORDER BY created_at DESC");
+        if ($users_result) {
+            while ($row = $users_result->fetch_assoc()) {
+                $users[] = $row;
+            }
         }
     }
-    unset($u);
-    $to_save = ['users' => $users];
-    file_put_contents($users_file, json_encode($to_save, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
-    echo '<div class="alert alert-success">🔑 Password reposta para "changeme123"</div>';
+}
+
+// Reset de password
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_pw'])) {
+    $user_id = intval($_POST['user_id'] ?? 0);
+    $new_password = password_hash('changeme123', PASSWORD_DEFAULT);
+    
+    $stmt = $mysqli->prepare("UPDATE users SET password = ? WHERE id = ?");
+    if ($stmt) {
+        $stmt->bind_param('si', $new_password, $user_id);
+        $stmt->execute();
+        $stmt->close();
+        echo '<div class="alert alert-success">🔑 Password reposta para "changeme123"</div>';
+    }
 }
 
 // Remover utilizador
-if (isset($_GET['delete'])) {
-    $email = $_GET['delete'];
-    $users = array_values(array_filter($users, fn($u) => ($u['email'] ?? '') !== $email));
-    $to_save = ['users' => $users];
-    file_put_contents($users_file, json_encode($to_save, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
-    echo '<div class="alert alert-success">🗑️ Utilizador removido</div>';
+if (isset($_GET['delete_user'])) {
+    $user_id = intval($_GET['delete_user']);
+    $stmt = $mysqli->prepare("DELETE FROM users WHERE id = ? AND id != 1");
+    if ($stmt) {
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $stmt->close();
+        echo '<div class="alert alert-success">🗑️ Utilizador removido</div>';
+        
+        // Recarregar users
+        $users = [];
+        $users_result = $mysqli->query("SELECT * FROM users ORDER BY created_at DESC");
+        if ($users_result) {
+            while ($row = $users_result->fetch_assoc()) {
+                $users[] = $row;
+            }
+        }
+    }
 }
-
-$users_data = json_decode(@file_get_contents($users_file), true) ?: [];
-$users = $users_data['users'] ?? [];
 ?>
 
-<h2 class="section-title">👥 Utilizadores</h2>
+<h2 class="section-title">👥 Utilizadores (<?= count($users) ?>)</h2>
+
 <?php if (!count($users)): ?>
   <p>Sem utilizadores registados.</p>
 <?php else: ?>
   <table class="data-table">
     <thead>
       <tr>
+        <th>ID</th>
         <th>Nome</th>
         <th>Email</th>
-        <th>Role</th>
+        <th>NIF</th>
+        <th>Admin</th>
+        <th>Data Registo</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <?php foreach ($users as $u): ?>
         <tr>
+          <td><strong>#<?= $u['id'] ?></strong></td>
           <td><?= htmlspecialchars($u['nome'] ?? '') ?></td>
           <td><?= htmlspecialchars($u['email'] ?? '') ?></td>
-          <td><?= htmlspecialchars($u['role'] ?? 'user') ?></td>
+          <td><?= htmlspecialchars($u['nif'] ?? '-') ?></td>
+          <td>
+            <?php if ($u['is_admin']): ?>
+              <span class="badge badge-success">✓ Admin</span>
+            <?php else: ?>
+              <span class="badge">Cliente</span>
+            <?php endif; ?>
+          </td>
+          <td><?= date('d/m/Y', strtotime($u['created_at'])) ?></td>
           <td>
             <form method="POST" style="display:inline-flex; gap:8px; align-items:center;">
-              <input type="hidden" name="update_role" value="1">
-              <input type="hidden" name="email" value="<?= htmlspecialchars($u['email'] ?? '') ?>">
-              <select name="role">
-                <?php foreach (['user','admin'] as $r): ?>
-                  <option value="<?= $r ?>" <?= (($u['role'] ?? 'user')===$r)?'selected':'' ?>><?= ucfirst($r) ?></option>
-                <?php endforeach; ?>
-              </select>
-              <button class="btn btn-success btn-sm" type="submit">Guardar</button>
+              <input type="hidden" name="user_id" value="<?= $u['id'] ?>">
+              <label style="margin:0; display:flex; align-items:center; gap:4px;">
+                <input type="checkbox" name="is_admin" <?= $u['is_admin'] ? 'checked' : '' ?>>
+                Admin
+              </label>
+              <button type="submit" name="update_role" class="btn btn-sm btn-primary">💾 Salvar</button>
             </form>
-            <form method="POST" style="display:inline-block; margin-left:8px;">
-              <input type="hidden" name="reset_pw" value="1">
-              <input type="hidden" name="email" value="<?= htmlspecialchars($u['email'] ?? '') ?>">
-              <button class="btn btn-sm" type="submit">🔑 Reset PW</button>
+            
+            <form method="POST" style="display:inline; margin-left:8px;">
+              <input type="hidden" name="user_id" value="<?= $u['id'] ?>">
+              <button type="submit" name="reset_pw" class="btn btn-sm btn-success" onclick="return confirm('Repor password para changeme123?')">🔑 Reset PW</button>
             </form>
-            <a class="btn btn-danger btn-sm" href="index.php?page=usuarios&delete=<?= urlencode($u['email'] ?? '') ?>" onclick="return confirm('Remover utilizador?');">🗑️ Apagar</a>
+            
+            <?php if ($u['id'] != 1): ?>
+            <a href="?page=usuarios&delete_user=<?= $u['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Remover utilizador?')" style="margin-left:8px;">🗑️</a>
+            <?php endif; ?>
           </td>
         </tr>
       <?php endforeach; ?>

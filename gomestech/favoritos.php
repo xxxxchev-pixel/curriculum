@@ -33,31 +33,18 @@ foreach ($ids as $id) {
   <title>Favoritos - GomesTech</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/gomestech.css">
+  <link rel="stylesheet" href="css/hamburger-menu.css">
   <link rel="stylesheet" href="css/favorites.css">
 </head>
 <body>
-  <header class="site-header with-tagline">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-lg)">
-      <div class="logo-wrapper">
-        <h1><a href="index.php" style="color:var(--color-primary);text-decoration:none">GomesTech</a></h1>
-      </div>
-      <nav style="display:flex;gap:var(--spacing-lg);align-items:center">
-  <!-- Removido o link Favoritos apenas nesta página -->
-        <!-- Removido o botão Login e Registo apenas nesta página -->
-      </nav>
-    </div>
-  </header>
+  <?php include __DIR__ . '/includes/header.php'; ?>
 
-  <main class="section favorites-section">
+  <main class="section favorites-section" style="padding-top: 180px;">
     <div class="container">
       <div class="favorites-header">
         <h2 class="section-title">❤️ Os meus Favoritos</h2>
-        <div class="favorites-actions">
-          <button class="btn-secondary btn-clear" onclick="clearFavorites()" style="background: transparent; border: 2px solid var(--color-danger); color: var(--color-danger); padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;">Limpar Favoritos</button>
-          <a class="btn-primary link-add" href="catalogo.php" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; font-size: 16px; font-weight: 700; background: linear-gradient(135deg, var(--color-primary) 0%, #FF8534 100%); color: white; border-radius: 10px; transition: all 0.3s ease;">+ Adicionar mais</a>
-        </div>
       </div>
 
       <?php if(empty($favoritos)): ?>
@@ -78,15 +65,23 @@ foreach ($ids as $id) {
                 <h3 class="product-title" style="margin:0"><?php echo htmlspecialchars($p['marca'] . ' ' . $p['modelo']); ?></h3>
                 <div class="product-price">€<?php echo number_format($p['preco'],2,',','.'); ?></div>
 
-                <div class="favorite-actions product-actions">
-                  <form method="post" action="carrinho.php" style="display:inline-block">
+                <div class="product-actions" style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; margin-top: 16px;">
+                  <form method="post" action="carrinho.php" style="width: 100%; display: flex; justify-content: center;">
                     <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="qty" value="1">
-                    <button type="submit" class="btn btn-primary">🛒 Adicionar</button>
+                    <button type="submit" class="btn btn-primary btn-cart-main" style="width: 100%; padding: 14px; font-size: 16px; font-weight: 700; background: linear-gradient(135deg, #FF6A00, #FF8534); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(255, 106, 0, 0.3);">
+                      🛒 Adicionar ao Carrinho
+                    </button>
                   </form>
-                  <button class="btn btn-secondary btn-remove" onclick="removeFavorite(<?php echo $p['id']; ?>)">Remover</button>
-                  <a href="produto.php?id=<?php echo urlencode($p['id']); ?>" class="btn btn-secondary" style="text-decoration:none">Ver</a>
+                  <div class="product-secondary-actions" style="display: flex; justify-content: center; gap: 12px; width: 100%;">
+                    <button class="btn-icon btn-secondary-action btn-remove-fav" onclick="removeFavorite(<?php echo $p['id']; ?>)" style="flex: 1; padding: 12px; background: white; border: 2px solid #E5E5E7; border-radius: 10px; color: #DC3545; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" title="Remover dos favoritos">
+                      ❌ Remover
+                    </button>
+                    <a href="produto.php?id=<?php echo urlencode($p['id']); ?>" class="btn-icon btn-secondary-action btn-view-product" style="flex: 1; padding: 12px; background: white; border: 2px solid #E5E5E7; border-radius: 10px; color: #666; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: all 0.3s ease;" title="Ver produto">
+                      👁️ Ver
+                    </a>
+                  </div>
                 </div>
               </div>
             </article>
@@ -164,5 +159,6 @@ foreach ($ids as $id) {
       window.location.replace(url.toString());
     }
   </script>
+  <script src="js/enhanced-interactions.js"></script>
 </body>
 </html>

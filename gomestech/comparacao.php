@@ -37,16 +37,14 @@ $mysqli->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparar Produtos - GomesTech</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/gomestech.css">
+    <link rel="stylesheet" href="css/hamburger-menu.css">
     <style>
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-        }
-        .site-header {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .compare-container {
             max-width: 1400px;
@@ -390,34 +388,12 @@ $mysqli->close();
     </style>
 </head>
 <body>
-    <header class="site-header with-tagline">
-        <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-lg)">
-            <div class="logo-wrapper">
-                <h1><a href="index.php" style="color:var(--color-primary);text-decoration:none">GomesTech</a></h1>
-            </div>
-            <nav style="display:flex;gap:var(--spacing-lg);align-items:center">
-                <?php if(isset($_SESSION['user_id'])):?>
-                    <a href="conta.php">👤 <?php echo htmlspecialchars(explode(' ',$_SESSION['user_nome'])[0]);?></a>
-                    <a href="logout.php" style="padding:var(--spacing-sm) var(--spacing-lg);background:#dc3545;color:white;border-radius:var(--radius-md);text-decoration:none;font-weight:600">Sair</a>
-                <?php else:?>
-                    <a href="login.php" style="padding:10px 20px;background:var(--color-primary);color:white;border-radius:8px;text-decoration:none;font-weight:600">Login</a>
-                <?php endif;?>
-            </nav>
-        </div>
-    </header>
+    <?php include __DIR__ . '/includes/header.php'; ?>
+    
     <main class="compare-container">
         <div class="compare-header">
             <h1>⚖️ Comparar Produtos</h1>
             <p>Analise as especificações lado a lado</p>
-            <div class="action-buttons">
-                <a href="index.php" class="btn-back">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M19 12H5M12 19l-7-7 7-7"/>
-                    </svg>
-                    Voltar para o Início
-                </a>
-                <!-- Botão limpar removido por pedido: X individual em cada card substitui -->
-            </div>
         </div>
         <?php if(empty($produtos)):?>
             <div class="empty-compare">
@@ -630,5 +606,6 @@ $mysqli->close();
         }
     </script>
     <script src="js/comparison.js"></script>
+    <script src="js/enhanced-interactions.js"></script>
 </body>
 </html>

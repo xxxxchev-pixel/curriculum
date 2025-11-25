@@ -14,6 +14,7 @@ $mysqli = db_connect();
 $categoria_filtro = isset($_GET['cat']) ? $_GET['cat'] : '';
 $marca_filtro = isset($_GET['marca']) ? $_GET['marca'] : '';
 $busca = isset($_GET['q']) ? $_GET['q'] : '';
+$filtro_especial = isset($_GET['filtro']) ? $_GET['filtro'] : ''; // novidades, promocoes, destaque
 $pagina_atual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 $produtos_por_pagina = 24; // 24 produtos por página (grid 4x6)
 
@@ -28,6 +29,22 @@ if ($busca) {
                    strpos(strtolower($p['modelo'] ?? ''), $search) !== false ||
                    strpos(strtolower($p['categoria'] ?? ''), $search) !== false;
         });
+    }
+} elseif ($filtro_especial) {
+    // Filtros especiais: novidades, promoções, destaque
+    $products = get_all_produtos($mysqli);
+    if (!empty($products) && is_array($products)) {
+        switch ($filtro_especial) {
+            case 'novidades':
+                $products = array_filter($products, fn($p) => ($p['novidade'] ?? 0) == 1);
+                break;
+            case 'promocoes':
+                $products = array_filter($products, fn($p) => ($p['promocao'] ?? 0) == 1 || (($p['preco_antigo'] ?? 0) > 0 && ($p['preco_antigo'] ?? 0) > ($p['preco'] ?? 0)));
+                break;
+            case 'destaque':
+                $products = array_filter($products, fn($p) => ($p['destaque'] ?? 0) == 1);
+                break;
+        }
     }
 } elseif ($categoria_filtro && $marca_filtro) {
     $products = filter_produtos($mysqli, ['categoria' => $categoria_filtro, 'marca' => $marca_filtro]);
@@ -70,7 +87,14 @@ if ($categoria_filtro) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $categoria_filtro ? htmlspecialchars($categoria_filtro) . ' - ' : ''; ?>Catálogo - GomesTech</title>
+    <title><?php 
+        if ($filtro_especial) {
+            $titulos = ['novidades' => '✨ Novidades', 'promocoes' => '💥 Promoções', 'destaque' => '⭐ Em Destaque'];
+            echo ($titulos[$filtro_especial] ?? 'Catálogo') . ' - ';
+        } elseif ($categoria_filtro) {
+            echo htmlspecialchars($categoria_filtro) . ' - ';
+        }
+    ?>Catálogo - GomesTech</title>
     
     <!-- Preconnect para melhor performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -239,6 +263,15 @@ if ($categoria_filtro) {
                 <h1 style="font-size:2.5rem;margin:0 0 12px;color:#1D1D1F;font-weight:700;">
                     <?php if($busca): ?>
                         Resultados para "<?php echo htmlspecialchars($busca); ?>"
+                    <?php elseif($filtro_especial): ?>
+                        <?php 
+                            $titulos_filtro = [
+                                'novidades' => '✨ Novidades',
+                                'promocoes' => '💥 Promoções',
+                                'destaque' => '⭐ Em Destaque'
+                            ];
+                            echo $titulos_filtro[$filtro_especial] ?? 'Catálogo';
+                        ?>
                     <?php elseif($categoria_filtro): ?>
                         <?php echo htmlspecialchars($categoria_filtro); ?>
                     <?php else: ?>

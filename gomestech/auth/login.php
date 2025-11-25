@@ -4,7 +4,7 @@ require_once __DIR__ . '/../config.php';
 
 // Se já está autenticado, redirecionar
 if (is_authenticated()) {
-    $next = $_GET['next'] ?? '/conta.php';
+    $next = $_GET['next'] ?? '../conta.php';
     header('Location: ' . $next);
     exit;
 }
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_regenerate_id(true);
             
             // Redirecionar
-            $next = $_GET['next'] ?? '/conta.php';
+            $next = $_GET['next'] ?? '../conta.php';
             header('Location: ' . $next);
             exit;
             
@@ -63,129 +63,208 @@ $mysqli->close();
     <title>Login - GomesTech</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/gomestech.css">
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            font-family: 'Inter', sans-serif;
+        }
+
         .auth-container {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: var(--space-6);
-            background: var(--color-bg-primary);
+            padding: 40px 20px;
         }
         
         .auth-card {
             width: 100%;
             max-width: 480px;
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border);
-            border-radius: 16px;
-            padding: var(--space-8);
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .auth-header {
             text-align: center;
-            margin-bottom: var(--space-7);
+            margin-bottom: 40px;
         }
         
         .auth-header h1 {
-            font-size: var(--font-size-5);
-            font-weight: 700;
-            margin-bottom: var(--space-2);
-            background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 0 12px 0;
+            background: linear-gradient(135deg, #FF6A00, #FF8534);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: -0.5px;
         }
         
         .auth-header p {
-            color: var(--color-text-secondary);
+            color: #666;
+            margin: 0;
+            font-size: 15px;
         }
         
         .form-group {
-            margin-bottom: var(--space-5);
+            margin-bottom: 24px;
         }
         
         .form-group label {
             display: block;
             font-weight: 600;
-            margin-bottom: var(--space-2);
-            color: var(--color-text-primary);
+            margin-bottom: 8px;
+            color: #1D1D1F;
+            font-size: 14px;
         }
         
         .form-group input {
             width: 100%;
-            padding: 12px 16px;
-            background: var(--color-bg-primary);
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            color: var(--color-text-primary);
-            font-size: var(--font-size-2);
-            transition: border-color var(--duration-2) var(--ease-out);
+            padding: 14px 18px;
+            background: #F8F9FA;
+            border: 2px solid #E5E5E7;
+            border-radius: 12px;
+            color: #1D1D1F;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
         }
         
         .form-group input:focus {
             outline: none;
-            border-color: var(--color-accent-start);
+            border-color: #FF6A00;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255, 106, 0, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-group input::placeholder {
+            color: #999;
         }
         
         .error-message {
-            background: rgba(244, 67, 54, 0.1);
-            border: 1px solid rgba(244, 67, 54, 0.3);
-            color: #f44336;
-            padding: var(--space-4);
-            border-radius: 8px;
-            margin-bottom: var(--space-5);
-            font-size: var(--font-size-1);
+            background: rgba(220, 53, 69, 0.1);
+            border: 2px solid rgba(220, 53, 69, 0.3);
+            color: #DC3545;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .error-message::before {
+            content: "⚠️";
+            font-size: 18px;
         }
         
         .auth-footer {
             text-align: center;
-            margin-top: var(--space-6);
-            padding-top: var(--space-6);
-            border-top: 1px solid var(--color-border);
+            margin-top: 32px;
+            padding-top: 28px;
+            border-top: 1px solid #E5E5E7;
+        }
+
+        .auth-footer p {
+            margin: 0 0 8px 0;
+            color: #666;
+            font-size: 14px;
         }
         
         .auth-footer a {
-            color: var(--color-accent-start);
+            color: #FF6A00;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s ease;
         }
         
         .auth-footer a:hover {
+            color: #E55D00;
             text-decoration: underline;
         }
         
         .btn-auth {
             width: 100%;
-            padding: 14px;
-            font-size: var(--font-size-2);
-            font-weight: 600;
-            margin-top: var(--space-4);
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF6A00, #FF8534);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            box-shadow: 0 6px 20px rgba(255, 106, 0, 0.3);
+            letter-spacing: 0.3px;
+        }
+
+        .btn-auth:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(255, 106, 0, 0.4);
+            background: linear-gradient(135deg, #E55D00, #FF6A00);
+        }
+
+        .btn-auth:active {
+            transform: translateY(0);
         }
         
         .back-link {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-2);
-            color: var(--color-text-secondary);
+            gap: 8px;
+            color: #666;
             text-decoration: none;
-            margin-bottom: var(--space-6);
-            font-size: var(--font-size-1);
+            margin-bottom: 32px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 8px;
         }
         
         .back-link:hover {
-            color: var(--color-text-primary);
+            color: #FF6A00;
+            background: rgba(255, 106, 0, 0.05);
+            transform: translateX(-2px);
         }
         
         @media (max-width: 768px) {
             .auth-container {
-                padding: var(--space-4);
+                padding: 24px 16px;
             }
             
             .auth-card {
-                padding: var(--space-6);
+                padding: 32px 24px;
+                border-radius: 20px;
+            }
+
+            .auth-header h1 {
+                font-size: 28px;
             }
         }
     </style>
@@ -235,13 +314,13 @@ $mysqli->close();
                     >
                 </div>
                 
-                <button type="submit" class="btn-primary btn-auth">
+                <button type="submit" class="btn-auth">
                     Entrar
                 </button>
             </form>
             
             <div class="auth-footer">
-                <p>Não tens conta? <a href="/auth/register.php<?php echo isset($_GET['next']) ? '?next=' . urlencode($_GET['next']) : ''; ?>">Cria uma agora</a></p>
+                <p>Não tens conta? <a href="register.php<?php echo isset($_GET['next']) ? '?next=' . urlencode($_GET['next']) : ''; ?>">Cria uma agora</a></p>
             </div>
         </div>
     </div>

@@ -62,47 +62,13 @@ $total = $subtotal;
   <title>GomesTech - Carrinho</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/gomestech.css">
+  <link rel="stylesheet" href="css/hamburger-menu.css">
+  <link rel="stylesheet" href="css/layout-improvements.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <div class="header-content">
-        <div class="logo-section">
-          <h1 class="logo">
-            <a href="index.php">GomesTech</a>
-          </h1>
-        </div>
-        
-        <div class="header-actions">
-          <a href="comparacao.php" class="header-icon" title="Comparar Produtos">
-            <span class="icon">⚖️</span>
-            <span class="label">Comparar</span>
-          </a>
-          <a href="favoritos.php" class="header-icon" title="Favoritos">
-            <span class="icon">❤️</span>
-            <span class="label">Favoritos</span>
-          </a>
-          <a href="carrinho.php" class="header-icon" title="Carrinho">
-            <span class="icon">🛒</span>
-            <span class="label">Carrinho</span>
-          </a>
-          <?php if(isset($_SESSION['user_id'])): ?>
-            <a href="conta.php" class="header-icon btn-user">
-              <span class="icon">👤</span>
-              <span class="label">Conta</span>
-            </a>
-          <?php else: ?>
-            <a href="login.php" class="header-icon btn-auth">
-              <span class="icon">🔐</span>
-              <span class="label">Login</span>
-            </a>
-          <?php endif; ?>
-        </div>
-      </div>
-    </div>
-  </header>
+  <?php include __DIR__ . '/includes/header.php'; ?>
 
   <main class="section">
     <div class="container">
@@ -213,6 +179,7 @@ $total = $subtotal;
 
   <script src="js/interactions.js"></script>
   <script src="js/animations.js"></script>
+  <script src="js/enhanced-interactions.js"></script>
 </body>
 </html>
 

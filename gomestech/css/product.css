@@ -28,12 +28,13 @@
 /* ==================== LAYOUT PRINCIPAL ==================== */
 .product-detail {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    margin-top: 40px;
-    max-width: 1100px;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    margin-top: 48px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 24px;
     animation: fadeInUp 0.6s ease-out;
 }
 
@@ -42,13 +43,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #FFFFFF;
+    background: linear-gradient(145deg, #FFFFFF 0%, #F8F9FA 100%);
     border: 1px solid #E5E5E7;
-    border-radius: 20px;
-    padding: 30px;
-    min-height: 350px;
-    max-height: 450px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border-radius: 24px;
+    padding: 48px;
+    min-height: 450px;
+    max-height: 550px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -116,7 +117,8 @@
 .product-info {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
+    padding: 8px 0;
 }
 
 /* Categoria Badge */
@@ -124,16 +126,17 @@
     display: inline-block;
     background: linear-gradient(135deg, #FF6A00 0%, #FF8534 100%);
     color: #FFFFFF;
-    padding: 8px 16px;
-    border-radius: 24px;
-    font-size: 11px;
-    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 28px;
+    font-size: 12px;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
+    letter-spacing: 1.2px;
+    margin-bottom: 12px;
     width: fit-content;
-    box-shadow: 0 4px 12px rgba(255, 106, 0, 0.25);
+    box-shadow: 0 6px 20px rgba(255, 106, 0, 0.35);
     animation: slideInRight 0.6s ease-out, pulse 2s ease-in-out infinite;
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 @keyframes pulse {
@@ -147,11 +150,12 @@
 
 /* Título do Produto */
 .product-info h1 {
-    font-size: 42px;
+    font-size: 48px;
     font-weight: 900;
-    line-height: 1.2;
+    line-height: 1.15;
     color: #1D1D1F;
-    margin: 0 0 12px 0;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.5px;
     animation: slideInRight 0.7s ease-out;
 }
 
@@ -166,14 +170,26 @@
 
 /* ==================== SECÇÃO DE PREÇO ==================== */
 .price-section {
-    background: linear-gradient(135deg, #F5F5F7 0%, #FFFFFF 100%);
-    border: 2px solid #E5E5E7;
-    border-radius: 16px;
-    padding: 28px;
-    margin: 24px 0 32px 0;
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, #FFF9F5 0%, #FFFFFF 100%);
+    border: 2px solid #FFE4D6;
+    border-radius: 20px;
+    padding: 32px;
+    margin: 28px 0 36px 0;
+    box-shadow: 0 8px 32px rgba(255, 106, 0, 0.12);
     transition: all 0.3s ease;
     animation: fadeIn 0.9s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.price-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FF6A00 0%, #FF8534 100%);
 }
 
 .price-section:hover {
@@ -192,12 +208,13 @@
 }
 
 .price-value {
-    font-size: 52px;
+    font-size: 56px;
     font-weight: 900;
     color: #FF6A00;
     margin: 0 0 12px 0;
     line-height: 1;
-    text-shadow: 0 2px 4px rgba(255, 106, 0, 0.1);
+    letter-spacing: -1px;
+    text-shadow: 0 4px 8px rgba(255, 106, 0, 0.15);
 }
 
 .price-store {
@@ -209,11 +226,13 @@
 
 /* ==================== DESCRIÇÃO ==================== */
 .description {
-    font-size: 16px;
-    line-height: 1.8;
+    font-size: 17px;
+    line-height: 1.75;
     color: #515154;
-    margin: 24px 0 32px 0;
+    margin: 28px 0 36px 0;
     animation: fadeIn 1s ease-out;
+    font-weight: 400;
+    letter-spacing: 0.2px;
 }
 
 /* ==================== ESPECIFICAÇÕES ==================== */
@@ -343,7 +362,9 @@
 .action-buttons .btn {
     background: linear-gradient(135deg, #FF6A00 0%, #FF8534 100%);
     color: #FFFFFF;
-    box-shadow: 0 6px 20px rgba(255, 106, 0, 0.3);
+    box-shadow: 0 8px 24px rgba(255, 106, 0, 0.35);
+    font-size: 17px;
+    padding: 20px 28px;
 }
 
 .action-buttons .btn:hover {
@@ -505,29 +526,33 @@
 .breadcrumbs {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 32px;
-    padding: 16px 0;
-    font-size: 14px;
+    gap: 14px;
+    margin-bottom: 40px;
+    padding: 20px 0;
+    font-size: 15px;
     color: #6E6E73;
     animation: fadeIn 0.5s ease-out;
+    font-weight: 500;
 }
 
 .breadcrumbs a {
     color: #FF6A00;
     text-decoration: none;
     transition: all 0.3s ease;
-    font-weight: 500;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
 }
 
 .breadcrumbs a:hover {
     color: #1D1D1F;
-    text-decoration: underline;
+    background: rgba(255, 106, 0, 0.1);
 }
 
 .breadcrumbs span {
     color: #D2D2D7;
     user-select: none;
+    font-size: 18px;
 }
 
 /* ==================== BADGE DE DESTAQUE ==================== */
@@ -576,33 +601,41 @@
 /* ==================== BADGES DE BENEFÍCIOS ==================== */
 .product-benefits {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    margin: 24px 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 28px 0;
     animation: fadeIn 1.3s ease-out;
 }
 
 .benefit-badge {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    background: #F5F5F7;
-    border-radius: 10px;
-    font-size: 13px;
+    gap: 12px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, #F5F5F7 0%, #FAFAFA 100%);
+    border: 1px solid #E5E5E7;
+    border-radius: 12px;
+    font-size: 14px;
     color: #1D1D1F;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .benefit-badge:hover {
     background: #FFFFFF;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    border-color: #FF6A00;
 }
 
 .benefit-badge .icon {
-    font-size: 20px;
+    font-size: 22px;
+    filter: grayscale(0.3);
+    transition: filter 0.3s ease;
+}
+
+.benefit-badge:hover .icon {
+    filter: grayscale(0);
 }
 
 /* ==================== GARANTIA E ENTREGA ==================== */
@@ -650,4 +683,148 @@
 .delivery-item .subtitle {
     font-size: 13px;
     color: #6E6E73;
+}
+
+/* ==================== ESPECIFICAÇÕES TÉCNICAS (ESTILO WORTEN) ==================== */
+.product-specs-section {
+    margin: 24px 0;
+    animation: fadeInUp 1s ease-out;
+}
+
+.specs-toggle-btn {
+    width: 100%;
+    padding: 18px 24px;
+    background: linear-gradient(135deg, #F5F5F7 0%, #FFFFFF 100%);
+    border: 2px solid #E5E5E7;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1D1D1F;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    text-align: left;
+}
+
+.specs-toggle-btn .icon {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    order: 1;
+}
+
+.specs-toggle-btn .specs-text {
+    flex: 1;
+    text-align: left;
+    order: 2;
+}
+
+.specs-toggle-btn .arrow {
+    font-size: 14px;
+    color: #FF6A00;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    order: 3;
+    margin-left: auto;
+}
+
+.specs-toggle-btn:hover {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F7 100%);
+    border-color: #FF6A00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 106, 0, 0.15);
+}
+
+.specs-toggle-btn.active {
+    background: linear-gradient(135deg, #FF6A00 0%, #FF8534 100%);
+    color: white;
+    border-color: #FF6A00;
+}
+
+.specs-toggle-btn.active .arrow {
+    color: white;
+}
+
+.product-specs-content {
+    margin-top: 16px;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-specs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(135deg, #F5F5F7 0%, #FFFFFF 100%);
+    border: 1px solid #E5E5E7;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.product-specs li {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #E5E5E7;
+    transition: all 0.3s ease;
+    gap: 12px;
+}
+
+.product-specs li:last-child {
+    border-bottom: none;
+}
+
+.product-specs li .spec-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: #FF6A00;
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.product-specs li strong {
+    color: #1D1D1F;
+    font-weight: 700;
+    min-width: 150px;
+}
+
+.product-specs li:hover {
+    background: #FFFFFF;
+    border-left: 4px solid #FF6A00;
+    padding-left: 16px;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(255, 106, 0, 0.1);
+}
+
+/* ==================== ESPECIFICAÇÕES ABAIXO DO PRODUTO ==================== */
+.product-specs-section-bottom {
+    margin: 40px 0 60px 0;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 1s ease-out;
+}
+
+.product-specs-section-bottom .specs-toggle-btn {
+    width: 100%;
 }

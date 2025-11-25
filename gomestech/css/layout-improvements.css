@@ -1,0 +1,305 @@
+/* 
+ * GOMESTECH - MELHORIAS DE LAYOUT 2025
+ * Design moderno e premium
+ */
+
+/* Smooth transitions globais */
+* {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Container melhorado */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+/* Header aprimorado */
+.site-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    padding: 8px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: 1px solid rgba(229, 229, 231, 0.6);
+}
+
+.site-header.header-hidden {
+    transform: translateY(-100%);
+    box-shadow: none;
+}
+
+.site-header.scrolled {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+/* Search bar in header */
+.header-content .search-bar {
+    flex: 1;
+    max-width: 450px;
+}
+
+.logo-section .logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #FF6A00;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+}
+
+.logo-section .logo:hover {
+    transform: translateY(-2px);
+}
+
+/* Header actions melhorado */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-icon {
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    border: 2px solid transparent;
+    color: #1D1D1F;
+}
+
+.header-icon:hover {
+    background: #F5F5F7;
+    transform: translateY(-2px);
+    border-color: #E5E5E7;
+}
+
+.header-icon .icon {
+    font-size: 16px;
+}
+
+.header-icon .label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.header-icon.btn-auth,
+.header-icon.btn-user {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #FF6A00 0%, #FF8534 100%);
+    color: white;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(255, 106, 0, 0.3);
+}
+
+.header-icon.btn-auth:hover,
+.header-icon.btn-user:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(255, 106, 0, 0.4);
+    background: linear-gradient(135deg, #FF7A10 0%, #FF9544 100%);
+}
+
+/* Section principal */
+.section {
+    padding: 60px 0;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
+}
+
+/* Footer melhorado */
+.site-footer {
+    background: linear-gradient(135deg, #1D1D1F 0%, #2A2A2C 100%);
+    color: #F4F6FA;
+    padding: 40px 0;
+    margin-top: 80px;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
+}
+
+.site-footer p {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    opacity: 0.9;
+}
+
+/* Scroll to top button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #FF6A00 0%, #FF8534 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(255, 106, 0, 0.4);
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(255, 106, 0, 0.5);
+}
+
+/* Melhorias de tipografia */
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.5px;
+    font-weight: 800;
+}
+
+p {
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+/* Cards com efeito hover melhorado */
+.card, .product-card {
+    transition: all 0.3s ease;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.card:hover, .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Botões aprimorados */
+.btn, .btn-primary, .btn-hero {
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    border-radius: 12px;
+    padding: 16px 32px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:active, .btn-primary:active, .btn-hero:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Inputs melhorados */
+input, select, textarea {
+    border-radius: 12px;
+    border: 2px solid #E5E5E7;
+    padding: 14px 18px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background: #F5F5F7;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #FF6A00;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(255, 106, 0, 0.12);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+/* Responsive improvements */
+@media (max-width: 1024px) {
+    .header-content .search-bar {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .header-content {
+        gap: 16px;
+    }
+    
+    .header-actions {
+        gap: 12px;
+    }
+    
+    .header-icon .label {
+        display: none;
+    }
+    
+    .header-content .search-bar {
+        display: none; /* Hide search bar on mobile - can be toggled with button if needed */
+    }
+    
+    .section {
+        padding: 40px 0;
+    }
+}
+
+/* Animações suaves */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Loading states */
+.loading {
+    pointer-events: none;
+    opacity: 0.6;
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #F5F5F7;
+    border-top-color: #FF6A00;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}

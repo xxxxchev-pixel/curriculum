@@ -96,7 +96,7 @@ if ($users_result && $users_result !== false) {
 }
 
 $orders = [];
-$orders_result = $mysqli->query("SELECT * FROM orders ORDER BY created_at DESC");
+$orders_result = $mysqli->query("SELECT * FROM encomendas ORDER BY created_at DESC");
 if ($orders_result && $orders_result !== false) {
     while ($row = $orders_result->fetch_assoc()) {
         $orders[] = $row;
@@ -130,9 +130,10 @@ $page = $_GET['page'] ?? 'dashboard';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - GomesTech</title>
+    <link rel="stylesheet" href="css/admin-global.css">
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        :root { --sidebar-width: 250px; --header-height: 70px; }
+        :root { --sidebar-width: 260px; --header-height: 70px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--primary-bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .admin-wrapper { display: flex; min-height: 100vh; }
@@ -201,8 +202,11 @@ $page = $_GET['page'] ?? 'dashboard';
                 <a href="?page=usuarios" class="nav-item <?= $page === 'usuarios' ? 'active' : '' ?>">
                     <span class="i">👥</span> Utilizadores
                 </a>
-                <a href="imagens.php" class="nav-item">
+                <a href="?page=imagens" class="nav-item <?= $page === 'imagens' ? 'active' : '' ?>">
                     <span class="i">📸</span> Imagens
+                </a>
+                <a href="?page=especificacoes" class="nav-item <?= $page === 'especificacoes' ? 'active' : '' ?>">
+                    <span class="i">📋</span> Especificações
                 </a>
                 <a href="../index.php" class="nav-item" target="_blank">
                     <span class="i">🌐</span> Ver Site
@@ -219,7 +223,9 @@ $page = $_GET['page'] ?? 'dashboard';
                         'dashboard' => '📊 Dashboard',
                         'produtos' => '📦 Gestão de Produtos',
                         'pedidos' => '🛒 Gestão de Pedidos',
-                        'usuarios' => '👥 Gestão de Utilizadores'
+                        'usuarios' => '👥 Gestão de Utilizadores',
+                        'imagens' => '📸 Gestão de Imagens',
+                        'especificacoes' => '📋 Especificações Técnicas'
                     ];
                     echo $titles[$page] ?? 'Admin';
                     ?>
@@ -241,6 +247,12 @@ $page = $_GET['page'] ?? 'dashboard';
                         break;
                     case 'usuarios':
                         include 'usuarios.php';
+                        break;
+                    case 'imagens':
+                        include 'imagens_panel.php';
+                        break;
+                    case 'especificacoes':
+                        include 'especificacoes_panel.php';
                         break;
                     default:
                         // Dashboard

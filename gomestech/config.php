@@ -532,18 +532,30 @@ if (!function_exists('get_all_categories')) {
         }
     }
 
+    // Verificar se usuário está autenticado
+    if (!function_exists('is_authenticated')) {
+        function is_authenticated(): bool {
+            return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+        }
+    }
+
     // Autenticação: verificar email/password e retornar o utilizador
     if (!function_exists('authenticate_user')) {
-        function authenticate_user(mysqli $mysqli, string $email, string $password): ?array {
+        function authenticate_user(mysqli $mysqli, string $email, string $password): array {
             $stmt = $mysqli->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
-            if (!$stmt) return null;
+            if (!$stmt) {
+                return ['success' => false, 'error' => 'Erro ao conectar à base de dados.'];
+            }
+            
             $stmt->bind_param('s', $email);
             $stmt->execute();
             $res = $stmt->get_result();
             $user = $res->fetch_assoc();
             $stmt->close();
 
-            if (!$user) return null;
+            if (!$user) {
+                return ['success' => false, 'error' => 'Email ou password incorretos.'];
+            }
 
             // Coluna de password pode ter nomes diferentes (password, passwd) — tentar detectar
             $pw_field = 'password';
@@ -558,7 +570,13 @@ if (!function_exists('get_all_categories')) {
                 // Se estiver em formato hash (bcrypt/argon), usar password_verify
                 if (password_verify($password, $hash)) {
                     $user['is_admin'] = isset($user['is_admin']) && ($user['is_admin'] == 1 || $user['is_admin'] === '1');
-                    return $user;
+                    return [
+                        'success' => true,
+                        'user_id' => $user['id'],
+                        'name' => $user['nome'] ?? $user['name'] ?? 'Utilizador',
+                        'email' => $user['email'],
+                        'is_admin' => $user['is_admin']
+                    ];
                 }
 
                 // Compatibilidade: alguns registos antigos podem ter password em texto plano.
@@ -573,11 +591,85 @@ if (!function_exists('get_all_categories')) {
                     }
                     $user[$pw_field] = $new_hash;
                     $user['is_admin'] = isset($user['is_admin']) && ($user['is_admin'] == 1 || $user['is_admin'] === '1');
-                    return $user;
+                    return [
+                        'success' => true,
+                        'user_id' => $user['id'],
+                        'name' => $user['nome'] ?? $user['name'] ?? 'Utilizador',
+                        'email' => $user['email'],
+                        'is_admin' => $user['is_admin']
+                    ];
                 }
             }
 
-            return null;
+            return ['success' => false, 'error' => 'Email ou password incorretos.'];
+        }
+    }
+
+    // Criar novo utilizador
+    if (!function_exists('create_user')) {
+        function create_user(mysqli $mysqli, array $data): array {
+            // Validar dados obrigatórios
+            if (empty($data['name']) || empty($data['email']) || empty($data['password'])) {
+                return ['success' => false, 'error' => 'Nome, email e password são obrigatórios.'];
+            }
+
+            // Validar formato do email
+            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                return ['success' => false, 'error' => 'Email inválido.'];
+            }
+
+            // Verificar se email já existe
+            $stmt = $mysqli->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
+            if (!$stmt) {
+                return ['success' => false, 'error' => 'Erro ao conectar à base de dados.'];
+            }
+            
+            $stmt->bind_param('s', $data['email']);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            if ($result->num_rows > 0) {
+                $stmt->close();
+                return ['success' => false, 'error' => 'Este email já está registado.'];
+            }
+            $stmt->close();
+
+            // Hash da password
+            $password_hash = password_hash($data['password'], PASSWORD_DEFAULT);
+
+            // Preparar dados para inserção
+            $nome = $data['name'];
+            $email = $data['email'];
+            $telefone = $data['phone'] ?? '';
+            $morada = $data['address_line1'] ?? '';
+            $codigo_postal = $data['postal_code'] ?? '';
+            $nif = $data['nif'] ?? '';
+
+            // Inserir utilizador (sem coluna 'cidade' que não existe)
+            $query = "INSERT INTO users (nome, email, password, telefone, morada, codigo_postal, nif, created_at) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+            
+            $stmt = $mysqli->prepare($query);
+            if (!$stmt) {
+                return ['success' => false, 'error' => 'Erro ao criar conta.'];
+            }
+
+            $stmt->bind_param('sssssss', $nome, $email, $password_hash, $telefone, $morada, $codigo_postal, $nif);
+            
+            if ($stmt->execute()) {
+                $user_id = $stmt->insert_id;
+                $stmt->close();
+                
+                return [
+                    'success' => true,
+                    'user_id' => $user_id,
+                    'name' => $nome,
+                    'email' => $email
+                ];
+            } else {
+                $stmt->close();
+                return ['success' => false, 'error' => 'Erro ao criar conta.'];
+            }
         }
     }
 }
